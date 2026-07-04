@@ -582,15 +582,30 @@ const Hero = () => {
         </div>
      
         {/* Right Side / Middle on Mobile: Ganesha Image */}
-        <div className="z-10 w-full md:w-1/2 flex justify-center -mt-8 md:-mt-10 lg:-mt-16 relative order-2">
+        {/* <div className="z-10 w-full md:w-1/2 flex justify-center -mt-8 md:-mt-10 lg:-mt-16 relative order-2">
           <div className="relative w-[280px] h-[380px] md:w-[650px] md:h-[800px]">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-yellow-500 opacity-20 blur-3xl rounded-full -z-10"></div>
             <Image 
-              src="/bappa.png" 
+              src="/ganpati-bappa.png" 
               alt="Lord Ganesha" 
               fill
               className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
               priority
+            />
+          </div> 
+        </div> */}
+
+        {/* Right Side / Middle on Mobile: Ganesha Image */}
+        <div className="z-10 w-full md:w-1/2 flex justify-center -mt-8 md:-mt-10 lg:-mt-16 relative order-2">
+          <div className="relative w-[280px] h-[380px] md:w-[650px] md:h-[800px]">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-yellow-500 opacity-20 blur-3xl rounded-full -z-10"></div>
+            <Image 
+              src="/ganpati-bappa.png" 
+              alt="Lord Ganesha" 
+              fill
+              sizes="(max-width: 768px) 280px, 650px" /* 🚀 एक्स्ट्रा लोड टाइम खत्म करने के लिए यह जोड़ा गया है */
+              className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+              priority={true} /* 🚀 इसे सबसे पहले लोड करने का निर्देश */
             />
           </div> 
         </div>
