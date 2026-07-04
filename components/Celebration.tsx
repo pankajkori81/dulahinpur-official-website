@@ -431,14 +431,14 @@ export default function InvitationSection() {
       style={{ backgroundColor: "#000000" }}
     >
       {/* Background Gradient */}
-      <div 
+      {/* <div 
         className="absolute inset-0 z-0 pointer-events-none" 
         style={{ background: "radial-gradient(ellipse at bottom, #1f0707 0%, #000000 100%)" }}
       >
         <div id="stars" />
         <div id="stars2" />
         <div id="stars3" />
-      </div>
+      </div> */}
 
       {/* 🚀 PERFORMANCE FIX: Drastically reduced the number of box-shadows. Browser GPU no longer struggles. */}
         <style>{`
