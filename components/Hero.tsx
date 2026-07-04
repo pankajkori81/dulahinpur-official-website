@@ -2,7 +2,15 @@
 import React from "react";
 import Image from "next/image";
 import { GridScan } from "./GridScan";
-import Lightfall from "./LineFall";
+// import Lightfall from "./LineFall";
+
+// 👇 1. सबसे पहले dynamic को इम्पोर्ट करें
+import dynamic from 'next/dynamic';
+
+// 👇 2. पुरानी वाली import Lightfall लाइन हटाकर यह लगाएँ
+const Lightfall = dynamic(() => import('./LineFall'), { 
+  ssr: false 
+});
 
 const Hero = () => {
   return (
@@ -19,14 +27,13 @@ const Hero = () => {
           streakWidth={1}
           streakLength={1}
           glow={0.8}
-          density={0.6}
+          density={0.4}
           twinkle={1}
           zoom={3}
           backgroundGlow={0.5}
           opacity={1}
           mouseInteraction={false}
-          mouseStrength={0.5}
-          mouseRadius={1}
+       
         
         />
       </div>
