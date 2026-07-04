@@ -586,7 +586,7 @@ const Hero = () => {
           <div className="relative w-[280px] h-[380px] md:w-[650px] md:h-[800px]">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-yellow-500 opacity-20 blur-3xl rounded-full -z-10"></div>
             <Image 
-              src="/ganpati-bappa.png" 
+              src="/bappa.png" 
               alt="Lord Ganesha" 
               fill
               className="object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
