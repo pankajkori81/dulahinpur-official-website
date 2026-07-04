@@ -602,12 +602,12 @@ export default function InvitationSection() {
         `}</style>
 
         {/* --- Outer Soft Glow --- */}
-        <div
+     <div
           className="absolute inset-0 rounded-xl"
           style={{
-            background: "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 60%)",
-            filter: "blur(20px)",
-            transform: "scale(1.05)",
+            background: "radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 70%)",
+            boxShadow: "0 0 30px rgba(212, 175, 55, 0.1)", 
+            transform: "scale(1.02)",
             zIndex: 0,
           }}
         />
