@@ -427,7 +427,7 @@ export default function InvitationSection() {
   return (
     <section
       id="celebration"
-      className="relative min-h-screen py-24 px-4 flex flex-col items-center justify-center scroll-mt-24 z-10 overflow-hidden"
+      className="relative min-h-screen py-24 px-4 flex flex-col items-center justify-center scroll-mt-24 z-10 overflow-hidden bg-black"
     >
       {/* Background Gradient */}
       <div 
