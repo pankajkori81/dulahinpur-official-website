@@ -526,6 +526,7 @@ export default function InvitationSection() {
       <div className="relative w-full max-w-[500px] mx-auto mt-5 z-10">
         
         {/* --- UIVERSE CSS ANIMATIONS & STYLES --- */}
+        {/* --- UIVERSE CSS ANIMATIONS & STYLES (🚀 OPTIMIZED FOR MOBILE) --- */}
         <style>{`
           .outer-wrapper {
             width: 100%;
@@ -533,61 +534,30 @@ export default function InvitationSection() {
             padding: 1px;
             background: radial-gradient(circle 300px at 0% 0%, #525252, #575757);
             position: relative;
-            box-shadow:0 0 50px #2e2e2e;
+            box-shadow: 0 0 40px #202020 /* Lighter shadow */
           }
           
-          /* Animated Glowing Dot */
-          .moving-dot {
-            width: 6px;
-            aspect-ratio: 1;
-            position: absolute;
-            background-color: #fff;
-            box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
-            border-radius: 100%;
-            z-index: 2;
-            animation: moveDot 6s linear infinite;
-          }
-          
-          /* Dot follows the inner lines exactly (20px margin) */
-          @keyframes moveDot {
-            0%, 100% { top: 18px; right: 18px; }
-            25% { top: 18px; right: calc(100% - 23px); }
-            50% { top: calc(100% - 23px); right: calc(100% - 23px); }
-            75% { top: calc(100% - 23px); right: 18px; }
-          }
+          /* 🚀 PERFORMANCE FIX: moving-dot and its @keyframes have been completely removed 
+             to stop layout thrashing and CPU overload during scrolling. */
 
           /* Black Inner Card with Grid Pattern */
           .inner-card {
             z-index: 1;
             width: 100%;
             height: 100%;
-            border-radius: 11px;
+            border-radius: 12px;
             border: solid 1px #380000;
             background: 
               radial-gradient(circle 400px at 0% 0%, #530909, #2d0000),
-              linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+              linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
             background-size: 100% 100%, 20px 20px, 20px 20px;
             position: relative;
             overflow: hidden;
           }
 
-          /* Light Ray Effect */
-          .ray {
-            width: 250px;
-            height: 45px;
-            border-radius: 100px;
-            position: absolute;
-            background-color: #9d9b9b;
-            opacity: 0.12;
-            box-shadow: 0 0px 50px #969696;
-            filter: blur(15px);
-            transform-origin: 10%;
-            top: 0%;
-            left: 0;
-            transform: rotate(40deg);
-            z-index: 0;
-          }
+          /* Light Ray Effect (🚀 OPTIMIZED: Removed heavy filter:blur) */
+       
 
           /* Inner Border Lines */
           .card-line {
@@ -595,7 +565,7 @@ export default function InvitationSection() {
             background-color: #c8c8c8e0;
             z-index: 0;
           }
-          .topl { top: 20px; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, #c8c8c8e0  , #c8c8c8e0 ); }
+          .topl { top: 20px; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, #c8c8c8e0, #c8c8c8e0); }
           .bottoml { bottom: 20px; left: 0; width: 100%; height: 1px; }
           .leftl { left: 20px; top: 0; width: 1px; height: 100%; background: linear-gradient(180deg, #c8c8c8e0, #c8c8c8e0); }
           .rightl { right: 20px; top: 0; width: 1px; height: 100%; }
@@ -673,7 +643,7 @@ export default function InvitationSection() {
                 {schedule.map((item, i) => (
                   <div 
                     key={i} 
-                    className="flex items-center gap-4 bg-gradient-to-r from-transparent via-[#530909]/80 to-transparent py-2 px-2 rounded backdrop-blur-sm"
+                    className="flex items-center gap-4 bg-gradient-to-r from-transparent via-[#530909]/80 to-transparent py-2 px-2 rounded"
                   >
                     <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full border border-[#d4af37]/30 bg-[#111111] shadow-[0_0_10px_rgba(212,175,55,0.1)]">
                       {item.icon}
