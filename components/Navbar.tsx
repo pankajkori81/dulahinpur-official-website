@@ -20,7 +20,7 @@ const Navbar = () => {
         {/* Adjusted to be perfectly level (top-1/2 -translate-y-1/2) and much larger (h-24 lg:h-32) */}
         <div className="absolute left-0 top-1/2 -translate-y-1/2 z-50">
           <Image 
-            src="/logo.png" 
+            src="/logo-bappa.png" 
             alt="Dulahinpur Logo" 
             width={400} 
             height={200} 
@@ -62,7 +62,7 @@ const Navbar = () => {
 
         <div className="flex items-center -ml-5">
           <Image 
-            src="/logo.png" 
+            src="/logo-bappa.png" 
             alt="Dulahinpur Logo" 
             width={200} 
             height={100} 
