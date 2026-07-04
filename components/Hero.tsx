@@ -16,7 +16,7 @@ const Hero = () => {
   return (
     <section 
       id="home" 
-      className="relative w-full bg-[#111] pt-12 pb-20 px-4 md:px-8 lg:px-24 flex flex-col min-h-screen overflow-hidden bg-black"
+      className="relative w-full pt-12 pb-20 px-4 md:px-8 lg:px-24 flex flex-col min-h-screen overflow-hidden bg-black"
     >
       <div className="absolute inset-0 z-0 opacity-60"> 
         <Lightfall
