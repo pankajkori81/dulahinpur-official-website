@@ -94,6 +94,13 @@ const Navbar = () => {
       {/* 4. Mobile Dropdown Menu (Enhanced Visibility) */}
       {isOpen && (
         <div className="md:hidden absolute top-[90px] left-1/2 -translate-x-1/2 w-[95%] bg-black/50 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 flex flex-col items-center gap-8 shadow-[0_16px_40px_0_rgba(0,0,0,0.6)] text-white">
+            <Link 
+            href="#home" 
+            onClick={() => setIsOpen(false)} 
+            className="text-2xl font-medium hover:text-yellow-400 transition-colors"
+          >
+            Home
+          </Link>
           <Link 
             href="#about" 
             onClick={() => setIsOpen(false)} 
