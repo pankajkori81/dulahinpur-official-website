@@ -428,6 +428,7 @@ export default function InvitationSection() {
     <section
       id="celebration"
       className="relative min-h-screen py-24 px-4 flex flex-col items-center justify-center scroll-mt-24 z-10 overflow-hidden bg-black"
+      style={{ backgroundColor: "#000000" }}
     >
       {/* Background Gradient */}
       <div 
@@ -488,8 +489,8 @@ export default function InvitationSection() {
         
         /* The Moving Animation */
         @keyframes animStar {
-          from { transform: translateY(0px); }
-          to { transform: translateY(-2000px); }
+          from { transform: translateY(0px) translateZ(0); }
+          to { transform: translateY(-2000px) translateZ(0); }
         }
       `}</style>
    

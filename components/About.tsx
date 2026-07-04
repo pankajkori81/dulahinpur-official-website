@@ -73,7 +73,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-// import Galaxy from "./Galaxy";
+
 
 const stages = [
 {
@@ -173,6 +173,7 @@ const About = () => {
     <section
       id="about"
       className="relative min-h-screen py-24 px-4 flex flex-col items-center justify-center scroll-mt-24 z-10 overflow-hidden bg-black"
+      style={{ backgroundColor: "#000000" }}
     >
       {/* --- START OF STARRY BACKGROUND --- */}
       <div 
@@ -230,31 +231,14 @@ const About = () => {
           box-shadow: inherit; /* Copies the parent's box shadow for seamless loop */
         }
         
-        /* The Moving Animation */
+          /* The Moving Animation */
         @keyframes animStar {
-          from { transform: translateY(0px); }
-          to { transform: translateY(-2000px); }
+          from { transform: translateY(0px) translateZ(0); }
+          to { transform: translateY(-2000px) translateZ(0); }
         }
       `}</style>
    
- 
 
-   
-    {/* <div className="absolute inset-0 z-0 opacity-80">
-  <Galaxy
-    starSpeed={0.5}
-    density={1}
-    hueShift={140}
-    speed={1}
-    glowIntensity={0.3}
-    saturation={0}
-    mouseRepulsion={false}
-    repulsionStrength={2}
-    twinkleIntensity={0.3}
-    rotationSpeed={0.1}
-    transparent
-  />
-</div> */}
 
       <style>{`
         @keyframes flicker {
@@ -376,37 +360,7 @@ const About = () => {
                     <Diya delay={i * 0.4} />
                   </div>
 
-                  {/* content plaque */}
-                  {/* <div
-                    className={`ml-16 md:ml-0 w-full md:w-[46%] ${
-                      isRight ? "md:ml-auto" : "md:mr-auto"
-                    }`}
-                  >
-                    <div className="relative border border-[#C9A227]/30 bg-[#1F1226]/70 px-6 py-7 md:px-8 md:py-8">
-                     
-                      <span className="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-[#C9A227]/60" />
-                      <span className="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-[#C9A227]/60" />
-                      <span className="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full bg-[#C9A227]/60" />
-                      <span className="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-[#C9A227]/60" />
-
-                      <div className="flex items-baseline gap-3 mb-3">
-                        <span className="text-xs tracking-[0.2em] uppercase text-[#B33A2E] font-semibold">
-                          {stage.label}
-                        </span>
-                        <span className="text-xs text-[#9B8AA6]">{stage.year}</span>
-                      </div>
-                      <h3 className="text-2xl md:text-3xl font-bold text-[#E38B29] mb-3 font-[family-name:var(--font-yatra)]">
-                        {stage.title}
-                      </h3>
-                      <p className="text-[#D9CEDD] text-base md:text-lg leading-relaxed">
-                        {stage.body}
-                      </p>
-                    </div>
-                  </div> */}
-
-                  {/* content plaque */}
-
-
+    
                   {/* content plaque */}
                   <div
                     className={`ml-16 md:ml-0 w-full md:w-[46%] ${
@@ -441,12 +395,7 @@ const About = () => {
 
                         {/* Text Content (Pointer events none so mouse tracks the grid underneath) */}
                         <div className="relative z-10 px-6 py-7 md:px-8 md:py-8 pointer-events-none">
-                          {/* <div className="flex items-baseline gap-3 mb-3">
-                            <span className="text-xs tracking-[0.2em] uppercase text-[#B33A2E] font-semibold">
-                              {stage.label}
-                            </span>
-                            <span className="text-xs text-[#9B8AA6]">{stage.year}</span>
-                          </div> */}
+                    
                           
                           <h3 className="text-2xl md:text-3xl font-bold text-[#E38B29] mb-3 font-[family-name:var(--font-yatra)]">
                             {stage.title}

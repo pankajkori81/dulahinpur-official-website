@@ -17,6 +17,7 @@ const Hero = () => {
     <section 
       id="home" 
       className="relative w-full pt-12 pb-20 px-4 md:px-8 lg:px-24 flex flex-col min-h-screen overflow-hidden bg-black"
+      style={{ backgroundColor: "#000000" }}
     >
       <div className="absolute inset-0 z-0 opacity-60"> 
         <Lightfall
