@@ -18,13 +18,13 @@ const Hero = () => {
           streakCount={2}
           streakWidth={1}
           streakLength={1}
-          glow={1}
+          glow={0.8}
           density={0.6}
           twinkle={1}
           zoom={3}
           backgroundGlow={0.5}
           opacity={1}
-          mouseInteraction
+          mouseInteraction={false}
           mouseStrength={0.5}
           mouseRadius={1}
         
