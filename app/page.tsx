@@ -122,6 +122,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import InvitationCard from "@/components/Celebration";
 import Celebration from "@/components/Celebration";
+import Venue from "@/components/Venue";
 
 const App = () => {
   return (
@@ -131,27 +132,15 @@ const App = () => {
       <Hero />
 
       {/* --- About page --- */}
-
       <About/>
 
 
       {/* Celebration */}
-
       <Celebration/>
-      
-      {/* <section id="about" className="min-h-screen flex items-center justify-center bg-white px-8 scroll-mt-24">
-        <div className="text-center font-[family-name:var(--font-mukta)]">
-          <h2 className="text-5xl font-bold text-[#2A1B54] mb-4">About the Festival</h2>
-          <p className="text-gray-500 text-xl">Your about content goes here.</p>
-        </div>
-      </section> */}
 
-      {/* <section id="celebration" className="min-h-screen flex items-center justify-center bg-[#FFF9F0] px-8 scroll-mt-24">
-        <div className="text-center font-[family-name:var(--font-mukta)]">
-          <h2 className="text-5xl font-bold text-[#2A1B54] mb-4">कार्यक्रम रूपरेखा</h2>
-          <p className="text-gray-500 text-xl">Schedule and event details will go here.</p>
-        </div>
-      </section> */}
+      {/* venue */}
+      <Venue/>
+      
 
       <section id="gallery" className="min-h-screen flex items-center justify-center bg-white px-8 scroll-mt-24">
         <div className="text-center font-[family-name:var(--font-mukta)]">
@@ -160,12 +149,7 @@ const App = () => {
         </div>
       </section>
 
-      <section id="contact" className="min-h-[70vh] flex items-center justify-center bg-[#2A1B54] px-8 scroll-mt-24">
-        <div className="text-center text-white font-[family-name:var(--font-mukta)]">
-          <h2 className="text-5xl font-bold text-yellow-400 mb-4">स्थान एवं संपर्क</h2>
-          <p className="text-gray-300 text-xl">दुलहिनपुर, रामगंज बाज़ार, अमेठी ।</p>
-        </div>
-      </section>
+    
 
     </div>
   );
