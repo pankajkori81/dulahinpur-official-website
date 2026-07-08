@@ -39,6 +39,9 @@ const Hero = () => {
         />
       </div>
 
+
+      
+
       {/* Local Style Block for Constrained Marquee */}
       <style>{`
         .marquee-container {
