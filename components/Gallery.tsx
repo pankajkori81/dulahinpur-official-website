@@ -753,6 +753,8 @@ function CoverflowSlider() {
     if (touchStartX.current - touchEndX < -50) prevSlide();
   };
 
+
+
   // Helper to calculate 3D position
   const getCardStyle = (index: number) => {
     // Determine shortest distance in circular array
@@ -762,7 +764,8 @@ function CoverflowSlider() {
 
     // Default styles (Hidden cards)
     let style: React.CSSProperties = {
-      transform: `translateX(${diff > 0 ? "100%" : "-100%"}) scale(0.5) translateZ(-200px)`,
+      // 🚀 FIX: Added translate(X, -50%) to correctly align with top-1/2 left-1/2
+      transform: `translate(${diff > 0 ? "50%" : "-150%"}, -50%) scale(0.5) translateZ(-200px)`,
       opacity: 0,
       zIndex: 0,
       filter: "blur(4px) brightness(0.4)",
@@ -772,7 +775,8 @@ function CoverflowSlider() {
     // Center Active Card
     if (diff === 0) {
       style = {
-        transform: "translateX(0) scale(1) translateZ(0)",
+        // 🚀 FIX: Perfectly centers the main card
+        transform: "translate(-50%, -50%) scale(1) translateZ(0)",
         opacity: 1,
         zIndex: 10,
         filter: "blur(0px) brightness(1)",
@@ -783,7 +787,7 @@ function CoverflowSlider() {
     // Right Card
     else if (diff === 1 || (diff === - (length - 1) && current === length - 1)) {
       style = {
-        transform: "translateX(50%) scale(0.8) translateZ(-80px)",
+        transform: "translate(0%, -50%) scale(0.8) translateZ(-80px)",
         opacity: 0.7,
         zIndex: 5,
         filter: "blur(1px) brightness(0.6)",
@@ -795,7 +799,7 @@ function CoverflowSlider() {
     // Left Card
     else if (diff === -1 || (diff === length - 1 && current === 0)) {
       style = {
-        transform: "translateX(-50%) scale(0.8) translateZ(-80px)",
+        transform: "translate(-100%, -50%) scale(0.8) translateZ(-80px)",
         opacity: 0.7,
         zIndex: 5,
         filter: "blur(1px) brightness(0.6)",
@@ -807,63 +811,69 @@ function CoverflowSlider() {
 
     return style;
   };
-
+  // ... (CoverflowSlider का ऊपर का लॉजिक वैसा ही रहेगा) ...
   return (
-    <div className="w-full max-w-4xl mx-auto flex flex-col gap-6 items-center">
+    <div className="w-full max-w-5xl mx-auto flex flex-col gap-6 items-center">
       
       {/* 3D Scene Container */}
       <div 
-        className="relative w-full h-[350px] md:h-[450px] flex items-center justify-center overflow-visible"
+        className="relative w-full h-[220px] sm:h-[350px] md:h-[450px] overflow-visible"
         style={{ perspective: "1200px" }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {SLIDER_IMAGES.map((img, i) => (
-          <div
-            key={i}
-            onClick={() => setCurrent(i)}
-            className="absolute top-0 w-[70%] md:w-[60%] h-full rounded-2xl overflow-hidden transition-all duration-700 ease-out"
-            style={{
-              transformStyle: "preserve-3d",
-              border: "1px solid rgba(212,175,55,0.3)",
-              ...getCardStyle(i),
-            }}
-          >
-            {/* Standard Image Tag - High Performance */}
-            <img
-              src={img.src}
-              alt={img.alt}
-              className="w-full h-full object-cover"
-              loading={i === 0 ? "eager" : "lazy"}
-            />
-            {/* Dark overlay for side items is handled by filter/brightness above */}
-            
-            {/* Active Card Text Overlay */}
-            <div 
-              className="absolute bottom-0 left-0 right-0 p-4 pt-12 transition-opacity duration-500"
-              style={{ 
-                background: "linear-gradient(to top, rgba(15,3,3,0.9), transparent)",
-                opacity: current === i ? 1 : 0 
+        {SLIDER_IMAGES.map((img, i) => {
+          // 🚀 FIX: Eager load center, right(1), and left(last) cards instantly
+          const isVisibleInstantly = i === 0 || i === 1 || i === length - 1;
+
+          return (
+            <div
+              key={i}
+              onClick={() => setCurrent(i)}
+              className="absolute top-1/2 left-1/2 w-[85%] sm:w-[70%] md:w-[600px] lg:w-[700px] aspect-video rounded-2xl overflow-hidden transition-all duration-700 ease-out"
+              style={{
+                transformStyle: "preserve-3d",
+                border: "1px solid rgba(212,175,55,0.3)",
+                ...getCardStyle(i),
               }}
             >
-              <h3 style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                color: "#E8D4B4",
-                fontSize: "18px",
-                letterSpacing: "0.1em",
-                textAlign: "center"
-              }}>
-                {img.alt}
-              </h3>
+              {/* 🚀 FIX: Next.js Optimized Image Component */}
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                sizes="(max-width: 768px) 85vw, (max-width: 1200px) 70vw, 700px"
+                className="object-cover"
+                priority={isVisibleInstantly} // पलक झपकते ही लोड होगा
+              />
+              
+              {/* Active Card Text Overlay */}
+              <div 
+                className="absolute bottom-0 left-0 right-0 p-4 pt-12 transition-opacity duration-500"
+                style={{ 
+                  background: "linear-gradient(to top, rgba(15,3,3,0.9), transparent)",
+                  opacity: current === i ? 1 : 0 
+                }}
+              >
+                <h3 style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  color: "#E8D4B4",
+                  fontSize: "18px",
+                  letterSpacing: "0.1em",
+                  textAlign: "center"
+                }}>
+                  {img.alt}
+                </h3>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {/* Navigation Arrows */}
-        <button onClick={prevSlide} className="absolute left-0 md:-left-12 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
+        <button onClick={prevSlide} className="absolute left-2 md:-left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
           ‹
         </button>
-        <button onClick={nextSlide} className="absolute right-0 md:-right-12 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
+        <button onClick={nextSlide} className="absolute right-2 md:-right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
           ›
         </button>
       </div>
@@ -888,9 +898,11 @@ function CoverflowSlider() {
     </div>
   );
 }
+  
+
 
 /* ═══════════════════════════════════════════
-   FIXED MARQUEE (Proper Aspect Ratio)
+   FIXED MARQUEE (Optimized Loading)
 ═══════════════════════════════════════════ */
 function MarqueeGallery() {
   const row1 = [...MARQUEE_IMAGES, ...MARQUEE_IMAGES];
@@ -906,28 +918,34 @@ function MarqueeGallery() {
         .marquee-track-right { display: flex; width: max-content; animation: marqueeRight 40s linear infinite; }
         .marquee-track-left:hover, .marquee-track-right:hover { animation-play-state: paused; }
         
-        /* 🚀 FIX 1: Fixed Aspect Ratio for all screen sizes */
-        .marquee-img {
+        .marquee-img-container {
+          position: relative;
           width: 260px;
-          aspect-ratio: 4 / 3; /* Locks the dimension so it never stretches */
-          object-fit: cover;
+          aspect-ratio: 4 / 3;
           border-radius: 12px;
           margin-right: 16px;
           flex-shrink: 0;
+          overflow: hidden;
           border: 1px solid rgba(212,175,55,0.2);
+          transition: all 0.3s ease;
+        }
+        .marquee-img-container img {
           filter: brightness(0.8) saturate(0.8);
           transition: all 0.3s ease;
         }
-        .marquee-img:hover {
-          filter: brightness(1) saturate(1.1);
-          transform: scale(1.03);
+        .marquee-img-container:hover {
           border-color: rgba(212,175,55,0.6);
           box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+          transform: scale(1.03);
+          z-index: 10;
+        }
+        .marquee-img-container:hover img {
+          filter: brightness(1) saturate(1.1);
         }
 
         /* Mobile specific sizing */
         @media (max-width: 768px) {
-          .marquee-img {
+          .marquee-img-container {
             width: 200px;
           }
         }
@@ -937,7 +955,17 @@ function MarqueeGallery() {
       <div style={{ maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)" }}>
         <div className="marquee-track-left">
           {row1.map((item, i) => (
-            <img key={`r1-${i}`} src={item.src} alt={item.alt} className="marquee-img" loading="lazy" />
+            <div key={`r1-${i}`} className="marquee-img-container">
+              {/* 🚀 FIX: Next.js Image with priority for first 4 items */}
+              <Image 
+                src={item.src} 
+                alt={item.alt} 
+                fill
+                sizes="(max-width: 768px) 200px, 260px"
+                className="object-cover"
+                priority={i < 4}
+              />
+            </div>
           ))}
         </div>
       </div>
@@ -946,7 +974,17 @@ function MarqueeGallery() {
       <div style={{ maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)" }}>
         <div className="marquee-track-right">
           {row2.map((item, i) => (
-            <img key={`r2-${i}`} src={item.src} alt={item.alt} className="marquee-img" loading="lazy" />
+            <div key={`r2-${i}`} className="marquee-img-container">
+              {/* 🚀 FIX: Next.js Image with priority for first 4 items */}
+              <Image 
+                src={item.src} 
+                alt={item.alt} 
+                fill
+                sizes="(max-width: 768px) 200px, 260px"
+                className="object-cover"
+                priority={i < 4}
+              />
+            </div>
           ))}
         </div>
       </div>
