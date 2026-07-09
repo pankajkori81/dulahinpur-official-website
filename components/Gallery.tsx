@@ -656,7 +656,7 @@ export default function DevotionalSection() {
         </div> */}
 
         {/* 🚀 3D Dome Gallery Container */}
-        <div className="w-full h-[270px] md:h-[600px] relative">
+        <div className="w-full h-[400px] md:h-[600px] relative">
           <DomeGallery 
              images={MARQUEE_IMAGES} 
              
