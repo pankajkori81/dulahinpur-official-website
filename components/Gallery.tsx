@@ -676,6 +676,10 @@ export default function DevotionalSection() {
              autoRotateSpeed={0.08} // लगातार घूमने की स्पीड
           />
         </div>
+
+          <p className="text-center mt-0" style={{ fontFamily: "'Cormorant Garamond', serif", color: "#E8D4B4", fontSize: "14px", fontStyle: "italic", opacity: 0.5 }}>
+          Drag or swipe to rotate · Tap an image to enlarge
+        </p>
         
      
       </div>
