@@ -855,13 +855,15 @@ function CoverflowSlider() {
                   opacity: current === i ? 1 : 0 
                 }}
               >
-                <h3 style={{
-                  fontFamily: "'Cormorant Garamond', serif",
-                  color: "#E8D4B4",
-                  fontSize: "18px",
-                  letterSpacing: "0.1em",
-                  textAlign: "center"
-                }}>
+           <h3 
+                  className="text-xs md:text-lg"
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    color: "#f1f1f1",
+                    letterSpacing: "0.1em",
+                    textAlign: "center"
+                  }}
+                >
                   {img.alt}
                 </h3>
               </div>
@@ -971,7 +973,7 @@ function MarqueeGallery() {
       </div>
 
       {/* Row 2 */}
-      <div style={{ maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)" }}>
+      <div style={{ maskImage: "linear-gradient(to right, transparent 0%, black 1%, black 99%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 1%, black 99%, transparent 100%)" }}>
         <div className="marquee-track-right">
           {row2.map((item, i) => (
             <div key={`r2-${i}`} className="marquee-img-container">
