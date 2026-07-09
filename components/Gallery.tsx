@@ -812,58 +812,150 @@ function CoverflowSlider() {
     return style;
   };
   // ... (CoverflowSlider का ऊपर का लॉजिक वैसा ही रहेगा) ...
-  return (
+//   return (
+//     <div className="w-full max-w-5xl mx-auto flex flex-col gap-6 items-center">
+      
+//       {/* 3D Scene Container */}
+//       <div 
+//         className="relative w-full h-[220px] sm:h-[350px] md:h-[450px] overflow-visible"
+//         style={{ perspective: "1200px" }}
+//         onTouchStart={handleTouchStart}
+//         onTouchEnd={handleTouchEnd}
+//       >
+//         {SLIDER_IMAGES.map((img, i) => {
+//           // 🚀 FIX: Eager load center, right(1), and left(last) cards instantly
+//           const isVisibleInstantly = i === 0 || i === 1 || i === length - 1;
+
+//           return (
+//             <div
+//               key={i}
+//               onClick={() => setCurrent(i)}
+//               className="absolute top-1/2 left-1/2 w-[85%] sm:w-[70%] md:w-[600px] lg:w-[700px] aspect-video rounded-2xl overflow-hidden transition-all duration-700 ease-out"
+//               style={{
+//                 transformStyle: "preserve-3d",
+//                 border: "1px solid rgba(212,175,55,0.3)",
+//                 ...getCardStyle(i),
+//               }}
+//             >
+//               {/* 🚀 FIX: Next.js Optimized Image Component */}
+//               <Image
+//                 src={img.src}
+//                 alt={img.alt}
+//                 fill
+//                 sizes="(max-width: 768px) 85vw, (max-width: 1200px) 70vw, 700px"
+//                 className="object-cover"
+//                 priority={isVisibleInstantly} // पलक झपकते ही लोड होगा
+//               />
+              
+//               {/* Active Card Text Overlay */}
+//               <div 
+//                 className="absolute bottom-0 left-0 right-0 p-4 pt-12 transition-opacity duration-500"
+//                 style={{ 
+//                   background: "linear-gradient(to top, rgba(15,3,3,0.9), transparent)",
+//                   opacity: current === i ? 1 : 0 
+//                 }}
+//               >
+//            <h3 
+//                   className="text-xs md:text-lg"
+//                   style={{
+//                     fontFamily: "'Cormorant Garamond', serif",
+//                     color: "#f1f1f1",
+//                     letterSpacing: "0.1em",
+//                     textAlign: "center"
+//                   }}
+//                 >
+//                   {img.alt}
+//                 </h3>
+//               </div>
+//             </div>
+//           );
+//         })}
+
+//         {/* Navigation Arrows */}
+//         <button onClick={prevSlide} className="absolute left-2 md:-left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
+//           ‹
+//         </button>
+//         <button onClick={nextSlide} className="absolute right-2 md:-right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
+//           ›
+//         </button>
+//       </div>
+
+//       {/* Pagination Dots */}
+//       <div className="flex items-center justify-center gap-2 mt-4">
+//         {SLIDER_IMAGES.map((_, i) => (
+//           <button
+//             key={i}
+//             onClick={() => setCurrent(i)}
+//             className="transition-all duration-300"
+//             style={{
+//               width: i === current ? "28px" : "8px",
+//               height: "8px",
+//               borderRadius: "4px",
+//               background: i === current ? "linear-gradient(90deg, #F5A623, #FFD700)" : "rgba(212,175,55,0.3)",
+//               boxShadow: i === current ? "0 0 10px rgba(245,166,35,0.5)" : "none",
+//             }}
+//           />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+  
+
+
+return (
     <div className="w-full max-w-5xl mx-auto flex flex-col gap-6 items-center">
       
-      {/* 3D Scene Container */}
+      {/* ── 3D Scene Container ── */}
       <div 
-        className="relative w-full h-[220px] sm:h-[350px] md:h-[450px] overflow-visible"
+        /* 🚀 FIX: h-[320px] मोबाइल की ऊँचाई है। अगर और ऊँचा करना हो तो इसे 350px कर दें */
+        className="relative w-full h-[340px] sm:h-[400px] md:h-[450px] overflow-visible"
         style={{ perspective: "1200px" }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
         {SLIDER_IMAGES.map((img, i) => {
-          // 🚀 FIX: Eager load center, right(1), and left(last) cards instantly
+          // Eager load center, right(1), and left(last) cards instantly
           const isVisibleInstantly = i === 0 || i === 1 || i === length - 1;
 
           return (
             <div
               key={i}
               onClick={() => setCurrent(i)}
-              className="absolute top-1/2 left-1/2 w-[85%] sm:w-[70%] md:w-[600px] lg:w-[700px] aspect-video rounded-2xl overflow-hidden transition-all duration-700 ease-out"
+              /* 🚀 FIX 1: w-[86%] मोबाइल की चौड़ाई है। (बढ़ाना हो तो 90% करें, कम करना हो तो 80% करें)
+                 🚀 FIX 2: aspect-[4/3] मोबाइल पर इसे ऊँचा (Taller) बनाता है। md:aspect-video डेस्कटॉप पर इसे 16:9 रखता है।
+              */
+              className="absolute top-1/2 left-1/2 w-[82%] sm:w-[75%] md:w-[600px] lg:w-[700px] aspect-[4/3] md:aspect-video rounded-2xl overflow-hidden transition-all duration-700 ease-out"
               style={{
                 transformStyle: "preserve-3d",
                 border: "1px solid rgba(212,175,55,0.3)",
                 ...getCardStyle(i),
               }}
             >
-              {/* 🚀 FIX: Next.js Optimized Image Component */}
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
-                sizes="(max-width: 768px) 85vw, (max-width: 1200px) 70vw, 700px"
+                sizes="(max-width: 768px) 86vw, (max-width: 1200px) 70vw, 700px"
                 className="object-cover"
-                priority={isVisibleInstantly} // पलक झपकते ही लोड होगा
+                priority={isVisibleInstantly}
               />
               
               {/* Active Card Text Overlay */}
               <div 
-                className="absolute bottom-0 left-0 right-0 p-4 pt-12 transition-opacity duration-500"
+                className="absolute bottom-0 left-0 right-0 p-3 pt-10 md:p-4 md:pt-12 transition-opacity duration-500"
                 style={{ 
                   background: "linear-gradient(to top, rgba(15,3,3,0.9), transparent)",
                   opacity: current === i ? 1 : 0 
                 }}
               >
-           <h3 
-                  className="text-xs md:text-lg"
-                  style={{
-                    fontFamily: "'Cormorant Garamond', serif",
-                    color: "#f1f1f1",
-                    letterSpacing: "0.1em",
-                    textAlign: "center"
-                  }}
-                >
+                <h3 className="text-sm md:text-lg" style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  color: "#ffe6bc",
+                  letterSpacing: "0.1em",
+                  textAlign: "center",
+                 
+                }}>
                   {img.alt}
                 </h3>
               </div>
@@ -872,10 +964,11 @@ function CoverflowSlider() {
         })}
 
         {/* Navigation Arrows */}
-        <button onClick={prevSlide} className="absolute left-2 md:-left-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
+        {/* 🚀 FIX: left-1 / right-1 बटन्स को किनारे से थोड़ी दूरी पर रखता है */}
+        <button onClick={prevSlide} className="absolute left-1 md:-left-8 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
           ‹
         </button>
-        <button onClick={nextSlide} className="absolute right-2 md:-right-8 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
+        <button onClick={nextSlide} className="absolute right-1 md:-right-8 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
           ›
         </button>
       </div>
@@ -898,9 +991,8 @@ function CoverflowSlider() {
         ))}
       </div>
     </div>
-  );
-}
-  
+  )
+};
 
 
 /* ═══════════════════════════════════════════
