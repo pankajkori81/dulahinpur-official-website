@@ -37,6 +37,7 @@ const Navbar = () => {
         <Link href="#celebration" className="hover:text-yellow-400 transition-colors tracking-wide">Celebration</Link>
         <Link href="#gallery" className="hover:text-yellow-400 transition-colors tracking-wide">Gallery</Link>
         <Link href="#contact" className="hover:text-yellow-400 transition-colors tracking-wide">Contact</Link>
+        <Link href="#feedback" className="hover:text-yellow-400 transition-colors tracking-wide">Feedback</Link>
       </nav>
 
       </div>
@@ -128,6 +129,13 @@ const Navbar = () => {
             className="text-2xl font-medium hover:text-yellow-400 transition-colors"
           >
             Contact
+          </Link>
+            <Link 
+            href="#feedback" 
+            onClick={() => setIsOpen(false)} 
+            className="text-2xl font-medium hover:text-yellow-400 transition-colors"
+          >
+            Feedback
           </Link>
         </div>
 

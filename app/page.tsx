@@ -124,6 +124,7 @@ import InvitationCard from "@/components/Celebration";
 import Celebration from "@/components/Celebration";
 import Venue from "@/components/Venue";
 import Gallery from "@/components/Gallery";
+import FeedbackSection from "@/components/FeedbackSection";
 
 const App = () => {
   return (
@@ -146,6 +147,11 @@ const App = () => {
       {/* Gallery */}
 
         <Gallery/>      
+
+
+        {/* FeebackSection */}
+
+        <FeedbackSection/>
 
       {/* <section id="gallery" className="min-h-screen flex items-center justify-center bg-white px-8 scroll-mt-24">
         <div className="text-center font-[family-name:var(--font-mukta)]">
