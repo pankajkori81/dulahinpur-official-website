@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image"; // Image optimization for faster loading
-import DomeGallery from "./DomeGallery";
+
 
 /* ═══════════════════════════════════════════
    DATA
@@ -240,171 +240,165 @@ return (
 };
 
 
-/* ═══════════════════════════════════════════
-   FIXED MARQUEE (Optimized Loading)
-═══════════════════════════════════════════ */
-
-/* ═══════════════════════════════════════════
-   3D CIRCULAR CAROUSEL (360° Motion & Blending)
-═══════════════════════════════════════════ */
 
 
+function MarqueeGallery() {
+  // 360 डिग्री में गोल घूमने के लिए इमेजेस को डबल करने की ज़रूरत नहीं है।
+  const items = MARQUEE_IMAGES;
+  const totalItems = items.length;
 
+  return (
+    <div className="w-full flex flex-col gap-16 overflow-hidden py-10">
+      <style>{`
+        :root {
+          /* Desktop Radius */
+          --carousel-radius: 620px; 
+          --carousel-push: -620px;
+        }
+        @media (max-width: 768px) {
+          :root {
+            /* Mobile Radius */
+            --carousel-radius: 400px;
+            --carousel-push: -400px;
+          }
+        }
 
+        .carousel-scene {
+          perspective: 1200px;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          /* Blending: किनारों और पीछे की इमेजेस को धुंधला (Fade) करने के लिए */
+          mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
+          -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
+        }
 
-// function MarqueeGallery() {
-//   // 360 डिग्री में गोल घूमने के लिए इमेजेस को डबल करने की ज़रूरत नहीं है।
-//   const items = MARQUEE_IMAGES;
-//   const totalItems = items.length;
+        .carousel-pusher {
+          transform-style: preserve-3d;
+          /* पूरे गोल घेरे को पीछे धकेलता है ताकि सामने वाली इमेज स्क्रीन पर फिट रहे */
+          transform: translateZ(var(--carousel-push)); 
+        }
 
-//   return (
-//     <div className="w-full flex flex-col gap-16 overflow-hidden py-10">
-//       <style>{`
-//         :root {
-//           /* Desktop Radius */
-//           --carousel-radius: 620px; 
-//           --carousel-push: -620px;
-//         }
-//         @media (max-width: 768px) {
-//           :root {
-//             /* Mobile Radius */
-//             --carousel-radius: 400px;
-//             --carousel-push: -400px;
-//           }
-//         }
+        .carousel-track {
+          position: relative;
+          width: 260px;
+          aspect-ratio: 4 / 3;
+          transform-style: preserve-3d;
+        }
 
-//         .carousel-scene {
-//           perspective: 1200px;
-//           width: 100%;
-//           display: flex;
-//           justify-content: center;
-//           /* Blending: किनारों और पीछे की इमेजेस को धुंधला (Fade) करने के लिए */
-//           mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
-//           -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
-//         }
+        @media (max-width: 768px) {
+          .carousel-track {
+            width: 180px;
+          }
+        }
 
-//         .carousel-pusher {
-//           transform-style: preserve-3d;
-//           /* पूरे गोल घेरे को पीछे धकेलता है ताकि सामने वाली इमेज स्क्रीन पर फिट रहे */
-//           transform: translateZ(var(--carousel-push)); 
-//         }
-
-//         .carousel-track {
-//           position: relative;
-//           width: 260px;
-//           aspect-ratio: 4 / 3;
-//           transform-style: preserve-3d;
-//         }
-
-//         @media (max-width: 768px) {
-//           .carousel-track {
-//             width: 180px;
-//           }
-//         }
-
-//         /* 360 Degree Rotations */
-//         .spin-left { animation: spinLeft 45s linear infinite; }
-//         .spin-right { animation: spinRight 45s linear infinite; }
+        /* 360 Degree Rotations */
+        .spin-left { animation: spinLeft 45s linear infinite; }
+        .spin-right { animation: spinRight 45s linear infinite; }
         
-//         .carousel-track:hover { animation-play-state: paused; }
+        .carousel-track:hover { animation-play-state: paused; }
 
-//         @keyframes spinLeft {
-//           0% { transform: rotateY(0deg); }
-//           100% { transform: rotateY(360deg); }
-//         }
-//         @keyframes spinRight {
-//           0% { transform: rotateY(360deg); }
-//           100% { transform: rotateY(0deg); }
-//         }
+        @keyframes spinLeft {
+          0% { transform: rotateY(0deg); }
+          100% { transform: rotateY(360deg); }
+        }
+        @keyframes spinRight {
+          0% { transform: rotateY(360deg); }
+          100% { transform: rotateY(0deg); }
+        }
 
-//         .carousel-item {
-//           position: absolute;
-//           top: 0; left: 0;
-//           width: 100%; height: 100%;
-//           border-radius: 12px;
-//           overflow: hidden;
-//           border: 1px solid rgba(212,175,55,0.3);
-//           box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-//           transition: all 0.4s ease;
-//         }
+        .carousel-item {
+          position: absolute;
+          top: 0; left: 0;
+          width: 100%; height: 100%;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid rgba(212,175,55,0.3);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+          transition: all 0.4s ease;
+        }
         
-//         .carousel-item img {
-//           filter: brightness(0.7) saturate(0.8);
-//           transition: all 0.4s ease;
-//         }
+        .carousel-item img {
+          filter: brightness(0.7) saturate(0.8);
+          transition: all 0.4s ease;
+        }
 
-//         .carousel-item:hover {
-//           border-color: rgba(212,175,55,0.9);
-//           box-shadow: 0 0 30px rgba(212,175,55,0.4);
-//         }
+        .carousel-item:hover {
+          border-color: rgba(212,175,55,0.9);
+          box-shadow: 0 0 30px rgba(212,175,55,0.4);
+        }
 
-//         .carousel-item:hover img {
-//           filter: brightness(1.1) saturate(1.2);
-//         }
-//       `}</style>
+        .carousel-item:hover img {
+          filter: brightness(1.1) saturate(1.2);
+        }
+      `}</style>
 
-//       {/* ── ROW 1: बाएँ (Left) घूमता हुआ 360° घेरा ── */}
-//       <div className="carousel-scene">
-//         <div className="carousel-pusher">
-//           <div className="carousel-track spin-left">
-//             {items.map((item, i) => {
-//               // हर इमेज को सर्कल में उसकी सही डिग्री पर सेट करना
-//               const angle = (360 / totalItems) * i;
-//               return (
-//                 <div
-//                   key={`r1-${i}`}
-//                   className="carousel-item"
-//                   style={{
-//                     transform: `rotateY(${angle}deg) translateZ(var(--carousel-radius))`
-//                   }}
-//                 >
-//                   <Image 
-//                     src={item.src} 
-//                     alt={item.alt} 
-//                     fill
-//                     sizes="(max-width: 768px) 180px, 260px"
-//                     className="object-cover"
-//                     priority={i < 4}
-//                   />
-//                 </div>
-//               );
-//             })}
-//           </div>
-//         </div>
-//       </div>
+      {/* ── ROW 1: बाएँ (Left) घूमता हुआ 360° घेरा ── */}
+      <div className="carousel-scene">
+        <div className="carousel-pusher">
+          <div className="carousel-track spin-left">
+            {items.map((item, i) => {
+              // हर इमेज को सर्कल में उसकी सही डिग्री पर सेट करना
+              const angle = (360 / totalItems) * i;
+              return (
+                <div
+                  key={`r1-${i}`}
+                  className="carousel-item"
+                  style={{
+                    transform: `rotateY(${angle}deg) translateZ(var(--carousel-radius))`
+                  }}
+                >
+                  <Image 
+                    src={item.src} 
+                    alt={item.alt} 
+                    fill
+                    sizes="(max-width: 768px) 180px, 260px"
+                    className="object-cover"
+                    priority={i < 4}
+                  />
 
-//       {/* ── ROW 2: दाएँ (Right) घूमता हुआ 360° घेरा ── */}
-//       <div className="carousel-scene">
-//         <div className="carousel-pusher">
-//           <div className="carousel-track spin-right">
-//             {items.map((item, i) => {
-//               const angle = (360 / totalItems) * i;
-//               return (
-//                 <div
-//                   key={`r2-${i}`}
-//                   className="carousel-item"
-//                   style={{
-//                     transform: `rotateY(${angle}deg) translateZ(var(--carousel-radius))`
-//                   }}
-//                 >
-//                   <Image 
-//                     src={item.src} 
-//                     alt={item.alt} 
-//                     fill
-//                     sizes="(max-width: 768px) 180px, 260px"
-//                     className="object-cover"
-//                     priority={i < 4}
-//                   />
-//                 </div>
-//               );
-//             })}
-//           </div>
-//         </div>
-//       </div>
 
-//     </div>
-//   );
-// }
+                    
+
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* ── ROW 2: दाएँ (Right) घूमता हुआ 360° घेरा ── */}
+      <div className="carousel-scene">
+        <div className="carousel-pusher">
+          <div className="carousel-track spin-right">
+            {items.map((item, i) => {
+              const angle = (360 / totalItems) * i;
+              return (
+                <div
+                  key={`r2-${i}`}
+                  className="carousel-item"
+                  style={{
+                    transform: `rotateY(${angle}deg) translateZ(var(--carousel-radius))`
+                  }}
+                >
+                  <Image 
+                    src={item.src} 
+                    alt={item.alt} 
+                    fill
+                    sizes="(max-width: 768px) 180px, 260px"
+                    className="object-cover"
+                    priority={i < 4}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
+}
 // function MarqueeGallery() {
 //   const row1 = [...MARQUEE_IMAGES, ...MARQUEE_IMAGES];
 //   const row2 = [...MARQUEE_IMAGES, ...MARQUEE_IMAGES].reverse();
@@ -609,83 +603,9 @@ export default function DevotionalSection() {
       </div>
 
 
-      {/* ── FESTIVE GALLERY 3D DOME ── */}
-      <div className="relative z-10 w-full flex flex-col gap-8 mt-10">
-        <div className="flex flex-col items-center gap-2">
-          <p style={{ fontFamily: "'Cinzel Decorative', cursive", color: "#d4af37", fontSize: "12px", letterSpacing: "0.25em" }}>
-            FESTIVE GALLERY
-          </p>
-          <div className="flex items-center gap-3 opacity-60">
-            <div className="w-12 h-px bg-[#d4af37]" />
-            <span style={{ color: "#d4af37", fontSize: "14px" }}>❖</span>
-            <div className="w-12 h-px bg-[#d4af37]" />
-          </div>
-        </div>
-        
-        {/* 🚀 New 3D Dome Gallery Container */}
-        {/* <div className="w-full h-[500px] md:h-[700px] relative">
-          <DomeGallery 
-             images={MARQUEE_IMAGES} 
-             minRadius={300} 
-             fit={0.55}
-             overlayBlurColor="#080202" // आपकी वेबसाइट के डार्क बैकग्राउंड से ब्लेंड करने के लिए
-             grayscale={false} // रंगीन (Colorful) फोटो दिखाने के लिए
-          />
-        </div> */}
-
-        {/* 🚀 New 3D Dome Gallery Container */}
-        {/* मोबाइल पर ऊँचाई कम (350px) और डेस्कटॉप पर ज़्यादा (600px) */}
-        {/* <div className="w-full h-[350px] md:h-[600px] relative">
-          <DomeGallery 
-             images={MARQUEE_IMAGES} 
-             
-             // 🚀 FIX: Mobile Layout Issue
-             // Desktop पर radius 350, Mobile पर 150 (ताकि इमेजेस पास-पास और बड़ी दिखें)
-             minRadius={typeof window !== 'undefined' && window.innerWidth < 768 ? 150 : 350} 
-             
-             // 🚀 FIX: Circular images on mobile
-             // मोबाइल पर 30px बॉर्डर रेडियस से ये गोल (circle) बन रहे थे। अब ये चौकोर (Rectangle) ही रहेंगे।
-             imageBorderRadius="8px"
-             openedImageBorderRadius="16px"
-             
-             fit={0.6} // थोड़ा सा स्केल (Scale) बड़ा करने के लिए
-             overlayBlurColor="#080202"
-             grayscale={false} 
-             autoRotateSpeed={0.06} // 🚀 Marquee Auto-rotate speed
-          />
-        </div> */}
-
-        {/* 🚀 3D Dome Gallery Container */}
-        <div className="w-full h-[400px] md:h-[600px] relative">
-          <DomeGallery 
-             images={MARQUEE_IMAGES} 
-             
-             // 🚀 FIX: Segments घटाकर 18 कर दिए गए हैं, ताकि मोबाइल पर ये छोटे डॉट्स की बजाय बड़े रेक्टेंगल दिखें!
-             segments={18}
-             
-             // 🚀 FIX: Mobile के लिए Radius 150 है, ताकि कार्ड्स एक-दूसरे के पास-पास आ जाएं।
-             minRadius={typeof window !== 'undefined' && window.innerWidth < 768 ? 150 : 350} 
-             
-             // 🚀 FIX: Border radius कम (8px) कर दिया है ताकि ये गोल (Circle) न बनकर चौकोर ही रहें।
-             imageBorderRadius="8px"
-             openedImageBorderRadius="16px"
-             
-             fit={0.65} 
-             overlayBlurColor="#080202"
-             grayscale={false} 
-             autoRotateSpeed={0.08} // लगातार घूमने की स्पीड
-          />
-        </div>
-
-          <p className="text-center mt-0" style={{ fontFamily: "'Cormorant Garamond', serif", color: "#E8D4B4", fontSize: "14px", fontStyle: "italic", opacity: 0.5 }}>
-          Drag or swipe to rotate · Tap an image to enlarge
-        </p>
-        
-     
-      </div>
 
       {/* ── FESTIVE GALLERY MARQUEE ── */}
-      {/* <div className="relative z-10 w-full flex flex-col gap-8 mt-8">
+      <div className="relative z-10 w-full flex flex-col gap-8 mt-8">
         <div className="flex flex-col items-center gap-2">
           <p style={{ fontFamily: "'Cinzel Decorative', cursive", color: "#d4af37", fontSize: "12px", letterSpacing: "0.25em" }}>
             FESTIVE GALLERY
@@ -699,10 +619,10 @@ export default function DevotionalSection() {
         
         <MarqueeGallery />
         
-        <p className="text-center mt-2" style={{ fontFamily: "'Cormorant Garamond', serif", color: "#E8D4B4", fontSize: "14px", fontStyle: "italic", opacity: 0.5 }}>
+        <p className="text-center mt-0" style={{ fontFamily: "'Cormorant Garamond', serif", color: "#E8D4B4", fontSize: "14px", fontStyle: "italic", opacity: 0.5 }}>
           Hover to pause · Swipe across the gallery
         </p>
-      </div> */}
+      </div>
     </section>
   );
 }

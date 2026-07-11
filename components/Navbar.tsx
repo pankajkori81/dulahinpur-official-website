@@ -94,46 +94,46 @@ const Navbar = () => {
 
       {/* 4. Mobile Dropdown Menu (Enhanced Visibility) */}
       {isOpen && (
-        <div className="md:hidden absolute top-[90px] left-1/2 -translate-x-1/2 w-[95%] bg-black/50 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 flex flex-col items-center gap-8 shadow-[0_16px_40px_0_rgba(0,0,0,0.6)] text-white">
+        <div className="md:hidden absolute top-[94px] left-1/2 -translate-x-1/2 w-[95%] bg-black/50 backdrop-blur-2xl border border-white/20 rounded-3xl p-8 flex flex-col items-center gap-8 shadow-[0_16px_40px_0_rgba(0,0,0,0.6)] text-white">
             <Link 
             href="#home" 
             onClick={() => setIsOpen(false)} 
-            className="text-2xl font-medium hover:text-yellow-400 transition-colors"
+            className="text-xl font-medium hover:text-yellow-400 transition-colors"
           >
             Home
           </Link>
           <Link 
             href="#about" 
             onClick={() => setIsOpen(false)} 
-            className="text-2xl font-medium hover:text-yellow-400 transition-colors"
+            className="text-xl font-medium hover:text-yellow-400 transition-colors"
           >
             About
           </Link>
           <Link 
             href="#celebration" 
             onClick={() => setIsOpen(false)} 
-            className="text-2xl font-medium hover:text-yellow-400 transition-colors"
+            className="text-xl font-medium hover:text-yellow-400 transition-colors"
           >
             Celebration
           </Link>
           <Link 
             href="#gallery" 
             onClick={() => setIsOpen(false)} 
-            className="text-2xl font-medium hover:text-yellow-400 transition-colors"
+            className="text-xl font-medium hover:text-yellow-400 transition-colors"
           >
             Gallery
           </Link>
           <Link 
             href="#contact" 
             onClick={() => setIsOpen(false)} 
-            className="text-2xl font-medium hover:text-yellow-400 transition-colors"
+            className="text-xl font-medium hover:text-yellow-400 transition-colors"
           >
             Contact
           </Link>
             <Link 
             href="#feedback" 
             onClick={() => setIsOpen(false)} 
-            className="text-2xl font-medium hover:text-yellow-400 transition-colors"
+            className="text-xl font-medium hover:text-yellow-400 transition-colors"
           >
             Feedback
           </Link>
@@ -147,125 +147,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-// "use client";
-
-// import React, { useState } from 'react';
-// import Link from 'next/link';
-
-// const Navbar = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   return (
-//     <>
-//     {/* Main Floating Glass Navbar */}
-//     <nav className="absolute top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 flex items-center justify-between px-6 py-4 text-white bg-white/10 backdrop-blur-lg border border-white/20 rounded-full shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
-      
-//       {/* 1. Left Side: Logo (Taking up 1/3 of the space to help center the links) */}
-      
-//       <div className="flex items-center gap-2 pl-2 w-1/3">
-//         <span className="text-yellow-400 text-2xl font-bold">Your logo</span>
-//       </div>
-
-//       {/* 2. Center: 4 Navigation Links (Hidden on Mobile) */}
-//       <ul className="hidden md:flex items-center justify-center gap-10 text-base font-medium w-1/3">
-//         <li><Link href="#about" className="hover:text-yellow-400 transition-colors">About</Link></li>
-//         <li><Link href="#celebration" className="hover:text-yellow-400 transition-colors">Celebration</Link></li>
-//         <li><Link href="#gallery" className="hover:text-yellow-400 transition-colors">Gallery</Link></li>
-//         <li><Link href="#contact" className="hover:text-yellow-400 transition-colors">Contact</Link></li>
-//       </ul>
-
-//       {/* Invisible Right Side (Taking up 1/3 of the space to keep the center links perfectly centered on desktop) */}
-//       <div className="hidden md:block w-1/3"></div>
-
-//       {/* 3. Mobile: Hamburger Icon (Hidden on Desktop) */}
-//       <div className="md:hidden flex items-center pr-2">
-//         <button 
-//           onClick={() => setIsOpen(!isOpen)} 
-//           className="text-white-600 focus:outline-none transition-transform duration-300"
-//           aria-label="Toggle menu"
-//         >
-//           <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-//             {isOpen ? (
-//               // X (Close) Icon
-//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-//             ) : (
-//               // Hamburger (Menu) Icon
-//               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-//             )}
-//           </svg>
-//         </button>
-//       </div>
-
-//       {/* --- Mobile Dropdown Menu (Glass Effect) --- */}
-//       {isOpen && (
-//         <div className="absolute top-20  left-0 w-full bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl p-6 flex flex-col items-center gap-6 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] md:hidden">
-//           <Link 
-//             href="#about" 
-//             onClick={() => setIsOpen(false)} 
-//             className="text-xl font-medium hover:text-yellow-400 transition-colors"
-//           >
-//             About
-//           </Link>
-//           <Link 
-//             href="#celebration" 
-//             onClick={() => setIsOpen(false)} 
-//             className="text-xl font-medium hover:text-yellow-400 transition-colors"
-//           >
-//             Celebration
-//           </Link>
-//           <Link 
-//             href="#gallery" 
-//             onClick={() => setIsOpen(false)} 
-//             className="text-xl font-medium hover:text-yellow-400 transition-colors"
-//           >
-//             Gallery
-//           </Link>
-//           <Link 
-//             href="#contact" 
-//             onClick={() => setIsOpen(false)} 
-//             className="text-xl font-medium hover:text-yellow-400 transition-colors"
-//           >
-//             Contact
-//           </Link>
-//         </div>
-//       )}
-//     </nav>
-//     </>
-//   );
-// };
-
-// export default Navbar;
-
-
-
-
-// import React from 'react';
-// import Link from 'next/link';
-
-// const Navbar = () => {
-//   return (
-//     <nav className="absolute top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 flex items-center justify-between px-6 py-4 text-white bg-white/10 backdrop-blur-lg border border-white/20 rounded-full shadow-[0_8px_32px_0_rgba(0,0,0,0.3)]">
-//       {/* Floating Glassmorphism Navbar */}
-      
-//       {/* Left: Logo */}
-//       <div className="flex items-center gap-2 pl-2">
-//         <span className="text-yellow-400 text-2xl font-bold">Your logo</span>
-//       </div>
-
-//       {/* Center: Navigation Links */}
-//       <ul className="hidden md:flex items-center gap-8 text-sm font-medium">
-//         <li><Link href="/" className="hover:text-yellow-400 transition-colors">Home</Link></li>
-//         <li><Link href="#about" className="hover:text-yellow-400 transition-colors">About</Link></li>
-//         <li><Link href="#celebration" className="hover:text-yellow-400 transition-colors">Celebration</Link></li>
-//         <li><Link href="#gallery" className="hover:text-yellow-400 transition-colors">Gallery</Link></li>
-//         <li><Link href="#contact" className="hover:text-yellow-400 transition-colors">Contact</Link></li>
-//       </ul>
-
-     
-      
-//     </nav>
-//   );
-// };
-
-// export default Navbar;

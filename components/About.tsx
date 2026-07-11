@@ -172,7 +172,7 @@ const About = () => {
 
     <section
       id="about"
-      className="relative min-h-screen py-24 px-4 flex flex-col items-center justify-center scroll-mt-24 z-10 overflow-hidden bg-black"
+      className="relative min-h-screen py-24 px-4 flex flex-col items-center justify-center scroll-mt-24 z-10 overflow-hidden bg-black "
       style={{ backgroundColor: "#000000" }}
     >
       {/* --- START OF STARRY BACKGROUND --- */}
