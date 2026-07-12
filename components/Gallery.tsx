@@ -249,6 +249,7 @@ function MarqueeGallery() {
 
   return (
     <div className="w-full flex flex-col gap-16 overflow-hidden py-10">
+
       <style>{`
         :root {
           /* Desktop Radius */
@@ -268,14 +269,12 @@ function MarqueeGallery() {
           width: 100%;
           display: flex;
           justify-content: center;
-          /* Blending: किनारों और पीछे की इमेजेस को धुंधला (Fade) करने के लिए */
           mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
           -webkit-mask-image: linear-gradient(to right, transparent 0%, black 25%, black 75%, transparent 100%);
         }
 
         .carousel-pusher {
           transform-style: preserve-3d;
-          /* पूरे गोल घेरे को पीछे धकेलता है ताकि सामने वाली इमेज स्क्रीन पर फिट रहे */
           transform: translateZ(var(--carousel-push)); 
         }
 
@@ -284,6 +283,8 @@ function MarqueeGallery() {
           width: 260px;
           aspect-ratio: 4 / 3;
           transform-style: preserve-3d;
+          /* 🚀 FIX 1: GPU को पहले से बता दें कि यह हिस्सा एनिमेट होगा */
+          will-change: transform; 
         }
 
         @media (max-width: 768px) {
@@ -316,6 +317,11 @@ function MarqueeGallery() {
           border: 1px solid rgba(212,175,55,0.3);
           box-shadow: 0 10px 30px rgba(0,0,0,0.8);
           transition: all 0.4s ease;
+          /* 🚀 FIX 2: जब इमेजेस गोल घूमकर पीछे जाएँगी, तो ब्राउज़र उन्हें रेंडर करना बंद कर देगा (50% लोड कम) */
+          backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
+          /* 🚀 FIX 3: 3D स्पेस में रेंडरिंग सुधारने के लिए Hardware Acceleration */
+          transform: translateZ(0); 
         }
         
         .carousel-item img {
@@ -331,7 +337,21 @@ function MarqueeGallery() {
         .carousel-item:hover img {
           filter: brightness(1.1) saturate(1.2);
         }
+
+        /* 🚀 FIX 4: मोबाइल पर भारी फिल्टर्स और शैडो बंद कर दें ताकि स्क्रॉलिंग एकदम मक्खन (Smooth) रहे */
+        @media (max-width: 768px) {
+          .carousel-item {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5); /* हल्की शैडो */
+          }
+          .carousel-item img {
+            filter: none; /* मोबाइल GPU को राहत */
+          }
+          .carousel-item:hover img {
+            filter: none;
+          }
+        }
       `}</style>
+     
 
       {/* ── ROW 1: बाएँ (Left) घूमता हुआ 360° घेरा ── */}
       <div className="carousel-scene">
@@ -356,10 +376,6 @@ function MarqueeGallery() {
                     className="object-cover"
                     priority={i < 4}
                   />
-
-
-                    
-
                 </div>
               );
             })}

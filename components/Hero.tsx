@@ -96,10 +96,10 @@ const Hero = () => {
           /* Festival Colors Gradient */
           background: conic-gradient(
             from 0deg,
-            #ff4a4a,
-            #004ac2,
-            #FFD700,
-            #750000
+            #ff9696,
+            #00173d,
+            #fde667,
+            #00014d
           );
         
           z-index: -2;
@@ -149,16 +149,60 @@ const Hero = () => {
         </div>
       </div>
 
+      {/* 🚀 FIX: डेस्कटॉप पर Right (दाईं) ओर और मोबाइल पर Center (बीच) में 14px साइज़ के साथ */}
+
+      <style>{`
+        .shiny-text {
+          /* 120deg एंगल पर: बेस कलर (Gold) -> चमक (White) -> बेस कलर (Gold) */
+          background: linear-gradient(
+            120deg, 
+            #ffd9d3 0%, 
+            #ffd2d2 35%, 
+            #FFFFFF 50%, 
+            #ff4b42 65%, 
+            #ffdada 100%
+          );
+          background-size: 200% auto;
+          color: transparent;
+          -webkit-background-clip: text;
+          background-clip: text;
+          /* 🚀 Hardware Accelerated CSS Animation */
+          animation: shiny-flow 2.5s linear infinite;
+          will-change: background-position;
+        }
+
+        /* चमक को दाईं से बाईं ओर (Left to Right) ले जाने का लॉजिक */
+        @keyframes shiny-flow {
+          0% { background-position: 150% center; }
+          100% { background-position: -50% center; }
+        }
+      `}</style>
+     
+
+      {/* 'justify-center' मोबाइल के लिए, 'md:justify-end' डेस्कटॉप पर राईट साइड ले जाने के लिए */}
+      {/* 'md:pr-10 lg:pr-32' डेस्कटॉप पर इसे बिल्कुल किनारे से थोड़ा अंदर (गणेश जी के ऊपर) रखेगा */}
+      <div className="relative z-20 w-full flex justify-center md:justify-end text-center md:text-right mt-5 md:-mt-5 mb-0 md:pr-0 lg:pr-0 ml-0 md:ml-16">
+        
+        {/* 🚀 FIX: मोबाइल के लिए text-[14px] लगाया गया है */}
+       <h3 className="shiny-text font-bold text-[14px] md:text-xl lg:text-2xl font-[family-name:var(--font-mukta)] tracking-wide drop-shadow-lg">
+          आगामी गणेश चतुर्थी : १४ सितंबर २०२६
+        </h3>
+        
+      </div>
+
+   
+   
+
       {/* Main Content: Split Layout */}
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-between w-full flex-grow mt-4 md:mt-0">
 
         {/* Left Column (Title + Desktop Slogan) */}
         <div className="z-10 w-full md:w-1/2 flex flex-col items-center md:items-start text-center md:text-left relative order-1">
-          {/* Decorative glow behind heading */}
+          
           <div className="absolute -top-10 -left-10 w-72 h-72 bg-pink-500 opacity-20 blur-[100px] rounded-full -z-10"></div>
 
           {/* Title - Centered with little gap on mobile */}
-          <div className="w-full flex justify-center md:justify-start mt-6 md:mt-16 mb-2 md:mb-8 md:-ml-8 lg:-ml-20">
+          <div className="w-full flex justify-center md:justify-start mt-0 md:mt-14 mb-2 md:mb-8 md:-ml-8 lg:-ml-20">
             <Image 
               src="/title-image.png" 
               alt="Dulahinpur Ganesh Utsav" 
@@ -200,7 +244,7 @@ const Hero = () => {
               >
                 <span 
                   className="gradient-text"
-                  style={{ fontSize: '22px' }} /* Text का आकार यहाँ से बदलें */
+                  style={{ fontSize: '20px'}} /* Text का आकार यहाँ से बदलें */
                 >
                   आमंत्रण देखें
                 </span>
@@ -209,10 +253,12 @@ const Hero = () => {
 
           </div>
         </div>
-    
+      
+     
 
         {/* Right Side / Middle on Mobile: Ganesha Image */}
-        <div className="z-10 w-full md:w-1/2 flex justify-center -mt-8 md:-mt-10 lg:-mt-16 relative order-2">
+        <div className="z-10 w-full md:w-1/2 flex justify-center -mt-8 md:-mt-10 lg:-mt-24 relative order-2">
+        
           <div className="relative w-[280px] h-[380px] md:w-[650px] md:h-[800px]">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-yellow-500 opacity-20 blur-3xl rounded-full -z-10"></div>
             <Image 

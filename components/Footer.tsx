@@ -317,7 +317,7 @@ export default function Footer() {
           
           {/* Left: Dynamic Copyright */}
           <p className="text-gray-300 text-center md:text-left text-sm" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-            Copyright @{year} Pankajkori. All Rights Reserved
+            Copyright @{year} दुलहिनपुर गणेशोत्सव. All Rights Reserved
           </p>
 
           {/* Right: Legal Links */}
