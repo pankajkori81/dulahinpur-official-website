@@ -66,24 +66,32 @@ const Hero = () => {
 
 
       {/* --- CUSTOM BUTTON STYLES --- */}
+      {/* --- CUSTOM BUTTON STYLES (NEON GLOW EFFECT) --- */}
       <style>{`
         .gradient-button {
           position: relative;
           padding: 12px 32px;
           font-size: 20px;
           font-weight: bold;
-          background: transparent;
+          background: #222; /* 🚀 FIX: Dark background like search box */
           border: none;
           cursor: pointer;
           border-radius: 12px;
           overflow: hidden;
-          transition: transform 0.2s ease;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
           display: inline-flex;
           text-decoration: none;
           z-index: 20;
+          /* 🚀 FIX: Outer Ambient Glow (Pink & Purple) */
+          box-shadow: 0 0 20px rgba(64, 47, 181, 0.4), 0 0 20px rgba(207, 48, 170, 0.4);
         }
 
-        .gradient-button:hover { transform: scale(1.05); }
+        .gradient-button:hover { 
+          transform: scale(1.05); 
+          /* Hover करने पर ग्लो और बढ़ जाएगा */
+          box-shadow: 0 0 30px rgba(64, 47, 181, 0.6), 0 0 30px rgba(207, 48, 170, 0.6);
+        }
+        
         .gradient-button:active { transform: scale(0.95); }
 
         .gradient-button::before {
@@ -93,37 +101,34 @@ const Hero = () => {
           left: -100%;
           width: 300%;
           height: 300%;
-          /* Festival Colors Gradient */
+          /* 🚀 FIX: The exact Conic Gradient from your reference image */
           background: conic-gradient(
-            from 0deg,
-            #ff9696,
-            #00173d,
-            #fde667,
-            #00014d
+            #1c191c,
+            #402fb5 10%, /* Purple */
+            #1c191c 20%,
+            #1c191c 50%,
+            #cf30aa 60%, /* Pink */
+            #1c191c 70%
           );
-        
           z-index: -2;
-          filter: blur(6px);
-          /* CONTINUOUS RUNNING BORDER LIGHT EFFECT */
-          animation: spin-border 2.5s linear infinite; 
+          filter: blur(2px); /* 🚀 Sharp neon border look */
+          animation: spin-border 3s linear infinite; /* Continuous Running Animation */
         }
 
         .gradient-button::after {
           content: "";
           position: absolute;
-          inset: 3px;
-          background: #111; /* Matches Hero background */
-          border-radius: 12px;
+          inset: 2px; /* Border thickness */
+          background: #010201; /* Inner dark mask */
+          border-radius: 10px; /* Fits perfectly inside the 12px button */
           z-index: -1;
         }
 
         .gradient-text {
-          color: transparent;
-          background: linear-gradient(90deg, #fbe6e6, #d8d8d8, #f7ebeb);
-          background-clip: text;
-          -webkit-background-clip: text;
+          color: #ffffff; /* 🚀 White text matching the search box */
           font-family: var(--font-mukta), sans-serif;
           letter-spacing: 1px;
+          text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
         }
 
         /* KEYFRAMES FOR CONTINUOUS SPIN */
@@ -132,7 +137,7 @@ const Hero = () => {
           100% { transform: rotate(360deg); }
         }
       `}</style>
-
+  
     
 
       {/* Sthapana Text - Fixed for Mobile (Left side, smaller, pushed down) */}

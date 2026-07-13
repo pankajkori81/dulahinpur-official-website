@@ -134,9 +134,74 @@ const App = () => {
       {/* --- HERO SECTION (Imported from components) --- */}
       <Hero />
 
+
+      {/* 🚀 NEON RUNNING DIVIDER (Hero और About के बीच) */}
+      <div className="w-full h-2 flex items-center justify-center relative overflow-hidden  mt-0 mb-0 z-20"
+       style={{ background: "radial-gradient(ellipse at bottom, #0f141b 0%, #050505 100%)" }} >
+      
+        {/* बेस की पतली डार्क लाइन */}
+        <div className="absolute w-full h-[4px] z-0"  style={{ background: "radial-gradient(ellipse at bottom, #090c10 0%, #050505 100%)" }} ></div>
+
+        {/* 🚀 CSS for Continuous Running Light */}
+        <style>{`
+          .running-light {
+            position: absolute;
+            width: 100%; /* लाइट की लंबाई */
+            height: 2px;
+            /* पर्पल, पिंक और सोने का खूबसूरत ब्लेंड */
+            background: linear-gradient(90deg, transparent, #402fb5, #cf30aa, #FFD700, #cf30aa, #402fb5, transparent);
+            box-shadow: 0 0 20px #cf30aa, 0 0 10px #402fb5;
+            animation: run-light 3s linear infinite;
+            z-index: 1;
+          }
+          @keyframes run-light {
+            0% { left: -100%; }
+            100% { left: 100%; }
+          }
+        `}</style>
+        
+        {/* दौड़ने वाली लाइट */}
+        <div className="running-light"></div>
+
+        {/* बीच का कमल (Lotus) जो दोनों सेक्शंस को आपस में जोड़ता है */}
+        {/* <div className="z-10 bg-[#050105] px-4 py-1 rounded-full border border-[#cf30aa]/30 shadow-[0_0_15px_rgba(207,48,170,0.2)]">
+          <span className="text-[#FFD700] text-xl drop-shadow-[0_0_8px_rgba(255,215,0,0.5)]">🪷</span>
+        </div> */}
+        
+      </div>
+
       {/* --- About page --- */}
       <About/>
-     
+
+
+       <div className="w-full h-2 flex items-center justify-center relative overflow-hidden  mt-0 mb-0 z-20"
+       style={{ background: "radial-gradient(ellipse at bottom, #0f141b 0%, #050505 100%)" }} >
+      
+        {/* बेस की पतली डार्क लाइन */}
+        <div className="absolute w-full h-[2px] z-0"  style={{ background: "radial-gradient(ellipse at bottom, #090c10 0%, #050505 100%)" }} ></div>
+
+        {/* 🚀 CSS for Continuous Running Light */}
+        <style>{`
+          .running-light-brown {
+            position: absolute;
+            width: 100%; /* लाइट की लंबाई */
+            height: 2px;
+            /* पर्पल, पिंक और सोने का खूबसूरत ब्लेंड */
+               background: linear-gradient(90deg, transparent, #5c0000, #04007e, #0b0089, #6d0000, #7b0a0a, transparent);
+            box-shadow: 0 0 20px #f30e0e, 0 0 10px #402fb5;
+            animation: run-light 3s linear infinite;
+            z-index: 1;
+          }
+          @keyframes run-light {
+            0% { left: -100%; }
+            100% { left: 100%; }
+          }
+        `}</style>
+        
+        {/* दौड़ने वाली लाइट */}
+        <div className="running-light-brown"></div>
+
+        </div>
 
 
       {/* Celebration */}
@@ -146,10 +211,76 @@ const App = () => {
       {/* venue */}
       <Venue/>
 
+         {/* 🚀 ROYAL GOLD RUNNING DIVIDER (About और Celebration के बीच) */}
+    <div 
+        /* 🚀 FIX: ऊँचाई 'h-16' कर दी गई है ताकि दोनों रंग आपस में स्मूथली मिल सकें */
+        className="w-full h-2 flex items-center justify-center relative overflow-hidden mt-0 mb-0 z-20"   
+        /* 🚀 FIX: ऊपर के काले (#050505) रंग से नीचे के मरून (#140000) रंग का पर्फेक्ट ग्रेडिएंट ब्लेंड */
+        style={{ background: "linear-gradient(to bottom, #050505 0%, #140000 100%)" }}   
+      >
+        {/* हल्की सी डार्क बेस लाइन (ताकि लाइट का रास्ता दिखे) */}
+        <div className="absolute w-full h-[2px] z-0" style={{ background: "linear-gradient(to bottom, #050505 0%, #140000 100%)" }}  ></div>
+
+        {/* 🚀 CSS for Golden Continuous Running Light */}
+        <style>{`
+          .running-gold-light {
+            position: absolute;
+            width: 100%; /* लाइट की लंबाई */
+            height: 2px;
+            /* 🚀 FIX: आमंत्रण कार्ड से मैच करता हुआ मरून (Maroon) और सोने (Gold) का ब्लेंड */
+            background: linear-gradient(90deg, transparent, #7B0A14, #F5A623, #FFD700, #F5A623, #7B0A14, transparent);
+            box-shadow: 0 0 15px #F5A623, 0 0 8px #7B0A14;
+            animation: run-gold-light 3s linear infinite;
+            z-index: 1;
+          }
+          @keyframes run-gold-light {
+            0% { left: -100%; }
+            100% { left: 100%; }
+          }
+        `}</style>
+        
+        {/* दौड़ने वाली लाइट */}
+        <div className="running-gold-light"></div>
+        
+      </div>
+
 
       {/* Gallery */}
 
-        <Gallery/>      
+        <Gallery/>    
+
+           {/* 🚀 ROYAL GOLD RUNNING DIVIDER (About और Celebration के बीच) */}
+    <div 
+        /* 🚀 FIX: ऊँचाई 'h-16' कर दी गई है ताकि दोनों रंग आपस में स्मूथली मिल सकें */
+        className="w-full h-2 flex items-center justify-center relative overflow-hidden mt-0 mb-0 z-20"   
+        /* 🚀 FIX: ऊपर के काले (#050505) रंग से नीचे के मरून (#140000) रंग का पर्फेक्ट ग्रेडिएंट ब्लेंड */
+        style={{ background: "linear-gradient(to bottom, #050505 0%, #1b0000 100%)" }}   
+      >
+        {/* हल्की सी डार्क बेस लाइन (ताकि लाइट का रास्ता दिखे) */}
+        <div className="absolute w-full h-[2px] z-0" style={{ background: "linear-gradient(to bottom, #050505 0%, #1b0000 100%)" }}  ></div>
+
+        {/* 🚀 CSS for Golden Continuous Running Light */}
+        <style>{`
+          .running-gold-end {
+            position: absolute;
+            width: 100%; /* लाइट की लंबाई */
+            height: 2px;
+            /* 🚀 FIX: आमंत्रण कार्ड से मैच करता हुआ मरून (Maroon) और सोने (Gold) का ब्लेंड */
+            background: linear-gradient(90deg, transparent, #7B0A14, #F5A623, #FFD700, #F5A623, #7B0A14, transparent);
+            box-shadow: 0 0 15px #F5A623, 0 0 8px #7B0A14;
+            animation: run-gold-light 3s linear infinite;
+            z-index: 1;
+          }
+          @keyframes run-gold-light {
+            0% { left: -100%; }
+            100% { left: 100%; }
+          }
+        `}</style>
+        
+        {/* दौड़ने वाली लाइट */}
+        <div className="running-gold-end"></div>
+        
+      </div>  
 
 
         {/* FeebackSection */}
