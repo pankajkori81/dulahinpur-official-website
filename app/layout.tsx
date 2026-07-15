@@ -42,6 +42,7 @@ import type { Metadata } from "next";
 import Navbar from '@/components/Navbar';
 import { Yatra_One, Mukta } from "next/font/google";
 import "./globals.css";
+import Loader from "@/components/Loader";
 
 const yatraOne = Yatra_One({
   weight: "400",
@@ -71,6 +72,7 @@ export default function RootLayout({
    return (
     <html lang="en">
       <body>
+           <Loader />
         <Navbar />
         <main>{children}</main>
       </body>
