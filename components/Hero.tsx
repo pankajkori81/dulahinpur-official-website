@@ -1,7 +1,7 @@
 'use client';
 import React from "react";
 import Image from "next/image";
-import { GridScan } from "./GridScan";
+
 // import Lightfall from "./LineFall";
 
 // 👇 1. सबसे पहले dynamic को इम्पोर्ट करें
