@@ -3,14 +3,7 @@
 import { useState, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
-/* ═══════════════════════════════════════════
-   CONFIG — fill these after setup
-   Add to .env.local:
-   NEXT_PUBLIC_EMAILJS_SERVICE_ID=service_xxx
-   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=template_xxx
-   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=xxx
-   NEXT_PUBLIC_SHEET_URL=https://script.google.com/macros/s/xxx/exec
-═══════════════════════════════════════════ */
+
 const EMAILJS_SERVICE_ID  = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID  ?? "";
 const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ?? "";
 const EMAILJS_PUBLIC_KEY  = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY  ?? "";
@@ -198,14 +191,25 @@ export default function FeedbackSection() {
   const set = (key: keyof FormState, val: string | number) =>
     setForm((prev) => ({ ...prev, [key]: val }));
 
+
+
   /* ── Submit handler ── */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 1. Honeypot check — if filled, silently ignore
+    // 1. Honeypot check — अगर स्पैम बॉट है तो चुपचाप इग्नोर करें
     if (form.honeypot) return;
 
-    // 2. Validation
+    // 2. Maximum 3 Submissions Check 
+    const feedbackCountStr = localStorage.getItem("gp_feedback_count") || "0";
+    const feedbackCount = parseInt(feedbackCountStr, 10);
+
+    if (feedbackCount >= 3) {
+      // अगर 3 बार फीडबैक दे चुका है, तो चुपचाप इग्नोर करें (Silently ignore)
+      return; 
+    }
+
+    // 3. Validation
     if (!form.name.trim()) {
       setErrMsg("कृपया अपना नाम भरें • Please enter your name");
       return;
@@ -215,12 +219,19 @@ export default function FeedbackSection() {
       return;
     }
 
-    // 3. Rate limiting — 10 min cooldown per browser
+    // 4. Rate Limiting — 10 min cooldown per browser
     const lastSubmit = localStorage.getItem("gp_feedback_ts");
     if (lastSubmit && Date.now() - Number(lastSubmit) < 600_000) {
       setErrMsg(
         "आपने हाल ही में फीडबैक दिया है। 10 मिनट बाद पुनः प्रयास करें।"
       );
+      return;
+    }
+
+    // 5. ENV Variables Check (Silent Failure रोकने के लिए)
+    if (!SHEET_URL && !EMAILJS_SERVICE_ID) {
+      console.error("CRITICAL ERROR: Environment Variables are missing!");
+      setErrMsg("सर्वर कॉन्फ़िगरेशन एरर। कृपया बाद में प्रयास करें।");
       return;
     }
 
@@ -236,9 +247,7 @@ export default function FeedbackSection() {
       time:    new Date().toLocaleString("hi-IN", { timeZone: "Asia/Kolkata" }),
     };
 
-
     try {
-      // 🚀 PERFORMANCE FIX: Google Sheets और EmailJS दोनों को एक साथ (Parallel) भेजें
       const tasks = [];
 
       // ── A. Google Sheets Task ──
@@ -265,11 +274,18 @@ export default function FeedbackSection() {
         );
       }
 
-      // दोनों Tasks के एक साथ पूरे होने का इंतज़ार करें
-      await Promise.allSettled(tasks);
+      const results = await Promise.allSettled(tasks);
+      
+      // चेक करें कि क्या कोई टास्क सच में चला या फेल हुआ
+      const allFailed = results.every(result => result.status === 'rejected');
+      if (allFailed && tasks.length > 0) {
+        throw new Error("All submission tasks failed.");
+      }
 
-      // ── C. Store timestamp to rate-limit ──
+      // 🚀 SUCCESS: दोनों चीज़ें अपडेट करें (10 मिनट का टाइमर और 3 बार वाली गिनती)
       localStorage.setItem("gp_feedback_ts", String(Date.now()));
+      localStorage.setItem("gp_feedback_count", String(feedbackCount + 1));
+      
       setStatus("success");
 
     } catch (err) {
@@ -279,29 +295,77 @@ export default function FeedbackSection() {
       );
       setStatus("idle");
     }
-};  
+  };
+
+
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+
+//     // 1. Honeypot check — if filled, silently ignore
+//     if (form.honeypot) return;
+
+//     // 2. Validation
+//     if (!form.name.trim()) {
+//       setErrMsg("कृपया अपना नाम भरें • Please enter your name");
+//       return;
+//     }
+//     if (form.stars === 0) {
+//       setErrMsg("कृपया रेटिंग दें • Please select a star rating");
+//       return;
+//     }
+
+//     // 3. Rate limiting — 10 min cooldown per browser
+//     const lastSubmit = localStorage.getItem("gp_feedback_ts");
+//     if (lastSubmit && Date.now() - Number(lastSubmit) < 600_000) {
+//       setErrMsg(
+//         "आपने हाल ही में फीडबैक दिया है। 10 मिनट बाद पुनः प्रयास करें।"
+//       );
+//       return;
+//     }
+
+//     setErrMsg("");
+//     setStatus("submitting");
+
+//     const payload = {
+//       name:    form.name.trim(),
+//       city:    form.city.trim() || "—",
+//       stars:   `${"★".repeat(form.stars)}${"☆".repeat(5 - form.stars)} (${form.stars}/5)`,
+//       type:    form.type || "—",
+//       message: form.message.trim() || "—",
+//       time:    new Date().toLocaleString("hi-IN", { timeZone: "Asia/Kolkata" }),
+//     };
+
 
 //     try {
-//       // ── A. Send to Google Sheets ──
-//       if (SHEET_URL) {
-//         await fetch(SHEET_URL, {
-//           method: "POST",
-//           mode: "no-cors", // Google Apps Script needs this
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify(payload),
-//         });
-//         // no-cors means we can't read response — assume success if no throw
-//       }
+//       // 🚀 PERFORMANCE FIX: Google Sheets और EmailJS दोनों को एक साथ (Parallel) भेजें
+//       const tasks = [];
 
-//       // ── B. Send email via EmailJS ──
-//       if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
-//         await emailjs.send(
-//           EMAILJS_SERVICE_ID,
-//           EMAILJS_TEMPLATE_ID,
-//           payload,
-//           EMAILJS_PUBLIC_KEY
+//       // ── A. Google Sheets Task ──
+//       if (SHEET_URL) {
+//         tasks.push(
+//           fetch(SHEET_URL, {
+//             method: "POST",
+//             mode: "no-cors",
+//             headers: { "Content-Type": "application/json" },
+//             body: JSON.stringify(payload),
+//           })
 //         );
 //       }
+
+//       // ── B. EmailJS Task ──
+//       if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
+//         tasks.push(
+//           emailjs.send(
+//             EMAILJS_SERVICE_ID,
+//             EMAILJS_TEMPLATE_ID,
+//             payload,
+//             EMAILJS_PUBLIC_KEY
+//           )
+//         );
+//       }
+
+//       // दोनों Tasks के एक साथ पूरे होने का इंतज़ार करें
+//       await Promise.allSettled(tasks);
 
 //       // ── C. Store timestamp to rate-limit ──
 //       localStorage.setItem("gp_feedback_ts", String(Date.now()));
@@ -314,7 +378,8 @@ export default function FeedbackSection() {
 //       );
 //       setStatus("idle");
 //     }
-//   };
+// };  
+
 
 
   const resetForm = () => {
