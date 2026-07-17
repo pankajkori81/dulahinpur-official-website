@@ -9,6 +9,7 @@ import Venue from "@/components/Venue";
 import Gallery from "@/components/Gallery";
 import FeedbackSection from "@/components/FeedbackSection";
 import Footer from "@/components/Footer";
+// import Countdown from "@/components/Countdown";
 
 const App = () => {
   return (
@@ -52,6 +53,8 @@ const App = () => {
         </div> */}
         
       </div>
+
+      {/* <Countdown /> */}
 
       {/* --- About page --- */}
       <About/>

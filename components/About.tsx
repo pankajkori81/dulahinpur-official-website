@@ -73,6 +73,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
+import Countdown from "@/components/Countdown";
 
 
 const stages = [
@@ -168,6 +169,7 @@ const Toran = () => (
 
 const About = () => {
   return (
+    
 
 
     <section
@@ -175,6 +177,8 @@ const About = () => {
       className="relative min-h-screen py-24 px-4 flex flex-col items-center justify-center scroll-mt-24 z-10 overflow-hidden bg-black "
       style={{ backgroundColor: "#000000" }}
     >
+
+      <Countdown />
       {/* --- START OF STARRY BACKGROUND --- */}
       <div 
         className="absolute inset-0 z-0 pointer-events-none" 
@@ -417,6 +421,7 @@ const About = () => {
         </div>
       </div>
     </section>
+
   );
 };
 
