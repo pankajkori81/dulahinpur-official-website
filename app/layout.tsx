@@ -65,9 +65,43 @@ const mukta = Mukta({
 
 
 
+// export const metadata: Metadata = {
+//   // 🚀 OPTIMIZATION 1: metadataBase (बॉट को सीधा रास्ता बताना)
+//   metadataBase: new URL('https://dulahinpur-official-website.vercel.app'),
+  
+//   title: 'दुलहिनपुर गणेशोत्सव',
+//   description: 'दुलहिनपुर के भव्य गणेश उत्सव में आपका हार्दिक स्वागत है।',
+  
+//   openGraph: {
+//     title: 'दुलहिनपुर गणेशोत्सव',
+//     description: 'दुलहिनपुर के भव्य गणेश उत्सव में आपका हार्दिक स्वागत है।',
+//     url: '/', // metadataBase अपने आप आगे का URL जोड़ लेगा
+//     siteName: 'Dulahinpur Ganesh Utsav',
+//     images: [
+//       {
+//         // 🚀 OPTIMIZATION 2: सही साइज़ और पूरा नाम
+//         url: '/og-image.jpg', 
+//         width: 1200,
+//         height: 630,
+//         alt: 'Dulahinpur Ganesh Utsav Logo',
+//       },
+//     ],
+//     locale: 'hi_IN',
+//     type: 'website',
+//   },
+  
+//   twitter: {
+//     card: 'summary_large_image',
+//     title: 'दुलहिनपुर गणेशोत्सव',
+//     description: 'दुलहिनपुर के भव्य गणेश उत्सव में आपका हार्दिक स्वागत है।',
+//     images: ['/og-image.jpg'],
+//   },
+// }
+
+
+
 export const metadata: Metadata = {
-  // 🚀 OPTIMIZATION 1: metadataBase (बॉट को सीधा रास्ता बताना)
-  metadataBase: new URL('https://dulahinpur-official-website.vercel.app'),
+  // यहाँ से metadataBase हटा दिया गया है
   
   title: 'दुलहिनपुर गणेशोत्सव',
   description: 'दुलहिनपुर के भव्य गणेश उत्सव में आपका हार्दिक स्वागत है।',
@@ -75,12 +109,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'दुलहिनपुर गणेशोत्सव',
     description: 'दुलहिनपुर के भव्य गणेश उत्सव में आपका हार्दिक स्वागत है।',
-    url: '/', // metadataBase अपने आप आगे का URL जोड़ लेगा
+    // 🚀 FIX: सीधा पूरा URL डाल दिया गया है
+    url: 'https://dulahinpur-official-website.vercel.app/', 
     siteName: 'Dulahinpur Ganesh Utsav',
     images: [
       {
-        // 🚀 OPTIMIZATION 2: सही साइज़ और पूरा नाम
-        url: '/og-image.jpg', 
+        // 🚀 FIX: इमेज के लिए भी पूरी लिंक डाल दी गई है
+        url: 'https://dulahinpur-official-website.vercel.app/og-image.jpg', 
         width: 1200,
         height: 630,
         alt: 'Dulahinpur Ganesh Utsav Logo',
@@ -94,7 +129,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'दुलहिनपुर गणेशोत्सव',
     description: 'दुलहिनपुर के भव्य गणेश उत्सव में आपका हार्दिक स्वागत है।',
-    images: ['/og-image.jpg'],
+    // 🚀 FIX: यहाँ भी पूरी लिंक
+    images: ['https://dulahinpur-official-website.vercel.app/og-image.jpg'], 
   },
 }
 
