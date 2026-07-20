@@ -238,13 +238,20 @@ export default function FeedbackSection() {
     setErrMsg("");
     setStatus("submitting");
 
-    const payload = {
+    // 1. Google Sheets Payload (क्रम सही किया गया है ताकि Message और Type स्वैप न हों)
+    const sheetPayload = {
       name:    form.name.trim(),
       city:    form.city.trim() || "—",
       stars:   `${"★".repeat(form.stars)}${"☆".repeat(5 - form.stars)} (${form.stars}/5)`,
-      type:    form.type || "—",
-      message: form.message.trim() || "—",
+      message: form.message.trim() || "—", // अब यह शीट के 'Message' कॉलम में जाएगा
+      type:    form.type || "—",           // अब यह शीट के 'Type' कॉलम में जाएगा
       time:    new Date().toLocaleString("hi-IN", { timeZone: "Asia/Kolkata" }),
+    };
+
+    // 2. EmailJS Payload ('विषय/About' को Email में दिखाने के लिए message के साथ जोड़ दिया गया है)
+    const emailPayload = {
+      ...sheetPayload,
+      message: `विषय: ${form.type || "—"} | संदेश: ${form.message.trim() || "—"}`
     };
 
     try {
@@ -257,7 +264,7 @@ export default function FeedbackSection() {
             method: "POST",
             mode: "no-cors",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
+            body: JSON.stringify(sheetPayload),
           })
         );
       }
@@ -268,13 +275,54 @@ export default function FeedbackSection() {
           emailjs.send(
             EMAILJS_SERVICE_ID,
             EMAILJS_TEMPLATE_ID,
-            payload,
+            emailPayload,
             EMAILJS_PUBLIC_KEY
           )
         );
       }
 
       const results = await Promise.allSettled(tasks);
+
+    // setErrMsg("");
+    // setStatus("submitting");
+
+    // const payload = {
+    //   name:    form.name.trim(),
+    //   city:    form.city.trim() || "—",
+    //   stars:   `${"★".repeat(form.stars)}${"☆".repeat(5 - form.stars)} (${form.stars}/5)`,
+    //   type:    form.type || "—",
+    //   message: form.message.trim() || "—",
+    //   time:    new Date().toLocaleString("hi-IN", { timeZone: "Asia/Kolkata" }),
+    // };
+
+    // try {
+    //   const tasks = [];
+
+    //   // ── A. Google Sheets Task ──
+    //   if (SHEET_URL) {
+    //     tasks.push(
+    //       fetch(SHEET_URL, {
+    //         method: "POST",
+    //         mode: "no-cors",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify(payload),
+    //       })
+    //     );
+    //   }
+
+    //   // ── B. EmailJS Task ──
+    //   if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
+    //     tasks.push(
+    //       emailjs.send(
+    //         EMAILJS_SERVICE_ID,
+    //         EMAILJS_TEMPLATE_ID,
+    //         payload,
+    //         EMAILJS_PUBLIC_KEY
+    //       )
+    //     );
+    //   }
+
+    //   const results = await Promise.allSettled(tasks);
       
       // चेक करें कि क्या कोई टास्क सच में चला या फेल हुआ
       const allFailed = results.every(result => result.status === 'rejected');
@@ -296,91 +344,6 @@ export default function FeedbackSection() {
       setStatus("idle");
     }
   };
-
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-
-//     // 1. Honeypot check — if filled, silently ignore
-//     if (form.honeypot) return;
-
-//     // 2. Validation
-//     if (!form.name.trim()) {
-//       setErrMsg("कृपया अपना नाम भरें • Please enter your name");
-//       return;
-//     }
-//     if (form.stars === 0) {
-//       setErrMsg("कृपया रेटिंग दें • Please select a star rating");
-//       return;
-//     }
-
-//     // 3. Rate limiting — 10 min cooldown per browser
-//     const lastSubmit = localStorage.getItem("gp_feedback_ts");
-//     if (lastSubmit && Date.now() - Number(lastSubmit) < 600_000) {
-//       setErrMsg(
-//         "आपने हाल ही में फीडबैक दिया है। 10 मिनट बाद पुनः प्रयास करें।"
-//       );
-//       return;
-//     }
-
-//     setErrMsg("");
-//     setStatus("submitting");
-
-//     const payload = {
-//       name:    form.name.trim(),
-//       city:    form.city.trim() || "—",
-//       stars:   `${"★".repeat(form.stars)}${"☆".repeat(5 - form.stars)} (${form.stars}/5)`,
-//       type:    form.type || "—",
-//       message: form.message.trim() || "—",
-//       time:    new Date().toLocaleString("hi-IN", { timeZone: "Asia/Kolkata" }),
-//     };
-
-
-//     try {
-//       // 🚀 PERFORMANCE FIX: Google Sheets और EmailJS दोनों को एक साथ (Parallel) भेजें
-//       const tasks = [];
-
-//       // ── A. Google Sheets Task ──
-//       if (SHEET_URL) {
-//         tasks.push(
-//           fetch(SHEET_URL, {
-//             method: "POST",
-//             mode: "no-cors",
-//             headers: { "Content-Type": "application/json" },
-//             body: JSON.stringify(payload),
-//           })
-//         );
-//       }
-
-//       // ── B. EmailJS Task ──
-//       if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
-//         tasks.push(
-//           emailjs.send(
-//             EMAILJS_SERVICE_ID,
-//             EMAILJS_TEMPLATE_ID,
-//             payload,
-//             EMAILJS_PUBLIC_KEY
-//           )
-//         );
-//       }
-
-//       // दोनों Tasks के एक साथ पूरे होने का इंतज़ार करें
-//       await Promise.allSettled(tasks);
-
-//       // ── C. Store timestamp to rate-limit ──
-//       localStorage.setItem("gp_feedback_ts", String(Date.now()));
-//       setStatus("success");
-
-//     } catch (err) {
-//       console.error("Feedback submit error:", err);
-//       setErrMsg(
-//         "कुछ गलत हुआ। कृपया पुनः प्रयास करें। • Something went wrong, please try again."
-//       );
-//       setStatus("idle");
-//     }
-// };  
-
-
 
   const resetForm = () => {
     setForm({ name: "", city: "", stars: 0, type: "", message: "", honeypot: "" });
@@ -552,18 +515,7 @@ export default function FeedbackSection() {
         </p>
       </div>
 
-      {/* ── FORM CARD ── */}
-      {/* <div
-        className="w-full max-w-lg relative"
-        style={{
-          background: "linear-gradient(160deg, rgba(72,8,16,0.88) 0%, rgba(30,2,6,0.94) 50%, rgba(26,10,46,0.9) 100%)",
-          backdropFilter: "blur(28px)",
-          border: "1px solid rgba(245,166,35,0.22)",
-          borderRadius: "28px",
-          boxShadow: "0 0 60px rgba(192,57,43,0.15), 0 30px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,215,0,0.08)",
-          overflow: "hidden",
-        }}
-      > */}
+
 
         <div
        
