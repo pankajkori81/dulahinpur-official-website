@@ -292,7 +292,7 @@ export default function Loader() {
         top:"50%", left:"50%",
         transform:"translate(-50%,-50%)",
         background:"radial-gradient(ellipse, rgba(120,10,5,0.15) 0%, transparent 70%)",
-        filter:"blur(40px)",
+        filter:"blur(10px)",
         pointerEvents:"none",
       }} />
 
@@ -336,7 +336,7 @@ export default function Loader() {
             <div style={{
               height:"100%", width:`${progress}%`,
               background:"linear-gradient(90deg, #8B0000, #C0392B 30%, #F5A623 70%, #FFD700)",
-              borderRadius:"2px", transition:"width 0.08s linear", boxShadow:"0 0 12px rgba(255,200,50,0.65)",
+              borderRadius:"2px", transition:"width 0.08s linear", boxShadow:"0 0 10px rgba(255,200,50,0.65)",
             }} />
           </div>
           <p style={{ fontFamily:"'Cormorant Garamond', serif", color:"rgba(253, 180, 21, 0.89)", fontSize:"14px", textAlign:"center", marginTop:"5px", letterSpacing:"0.08em" }}>
