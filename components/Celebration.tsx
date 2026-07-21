@@ -427,11 +427,11 @@ export default function InvitationSection() {
   return (
     <section
       id="celebration"
-      className="relative min-h-screen py-24 px-4 flex flex-col items-center justify-center scroll-mt-24 z-10 overflow-hidden bg-transparent"
-     style={{  contentVisibility: "auto" }}
+      className="relative min-h-screen py-24 px-4 flex flex-col items-center justify-center scroll-mt-24 z-10 overflow-hidden bg-black"
+     style={{ backgroundColor: "#000000"}}
     >
       {/* Background Gradient */}
-      {/* <div 
+      <div 
         className="absolute inset-0 z-0 pointer-events-none" 
         style={{ background: "radial-gradient(ellipse at bottom, #1f0707 0%, #000000 100%)" }}
       >
@@ -491,7 +491,7 @@ export default function InvitationSection() {
           from { transform: translateY(0px) translateZ(0); }
           to { transform: translateY(-2000px) translateZ(0); }
         }
-      `}</style> */}
+      `}</style>
    
       {/* --- INVITATION HEADER SECTION --- */}
       <div className="relative z-10 flex flex-col items-center gap-2 mb-8 md:mb-12 w-full text-center">

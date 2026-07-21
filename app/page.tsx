@@ -9,20 +9,18 @@ import Venue from "@/components/Venue";
 import Gallery from "@/components/Gallery";
 import FeedbackSection from "@/components/FeedbackSection";
 import Footer from "@/components/Footer";
-// import Countdown from "@/components/Countdown";
 
-import StarBackground from "@/components/StarBackground";
 
 const App = () => {
   return (
     <div className="bg-[#FFF9F0] w-full min-h-screen font-sans overflow-x-hidden">
       
       {/* --- HERO SECTION (Imported from components) --- */}
-     <div className="relative z-10">
+    
         <Hero />
-      </div>
+     
 
-      <StarBackground />
+    
 
 
       {/* 🚀 NEON RUNNING DIVIDER (Hero और About के बीच) */}
@@ -58,9 +56,9 @@ const App = () => {
 
 
       {/* --- About page --- */}
-     <div className="relative z-10">
+    
         <About/>
-      </div>
+     
 
 
         {/* 🚀 NEON RUNNING DIVIDER (Hero और About के बीच) */}
@@ -98,15 +96,15 @@ const App = () => {
 
 
       {/* Celebration */}
-        <div className="relative z-10">
+     
      <Celebration/>
-      </div>
+      
 
 
       {/* venue */}
-        <div className="relative z-10">
+   
      <Venue/>
-      </div>
+      
 
          {/* 🚀 ROYAL GOLD RUNNING DIVIDER (About और Celebration के बीच) */}
     <div 

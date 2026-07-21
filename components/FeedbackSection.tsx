@@ -358,6 +358,7 @@ export default function FeedbackSection() {
       id="feedback"
       /* 🚀 FIX 1: 'w-full' और 'overflow-hidden' जोड़ा गया है ताकि तारों (stars) की वजह से Scrollbar न आए */
       className="relative w-full overflow-hidden py-24 px-4 flex flex-col items-center gap-12 bg-black"
+         style={{ backgroundColor: "#1e0000"}}
     >
 
 
