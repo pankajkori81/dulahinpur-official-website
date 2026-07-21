@@ -14,7 +14,7 @@ export default function Footer() {
 
   return (
     <footer 
-      className="relative w-full pt-12 pb-6 px-6 md:px-12 mt-0 flex flex-col items-center"
+      className="relative w-full pt-12 pb-6 px-6 md:px-12 mt-0 flex flex-col items-center bg-black"
       style={{
         /* 🚀 Glassmorphism Gradient (Deep Burgundy/Maroon highlight) */
         // background: "linear-gradient(135deg, rgba(4, 0, 54, 0.81) 0%, rgba(20, 5, 10, 0.9) 100%)",
