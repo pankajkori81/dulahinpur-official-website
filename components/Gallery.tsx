@@ -8,18 +8,7 @@ import Image from "next/image"; // Image optimization for faster loading
 /* ═══════════════════════════════════════════
    DATA
 ═══════════════════════════════════════════ */
-const prayers = [
-  {
-    sanskrit: "वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।",
-    transliteration: "Vakratunda Mahakaya Suryakoti Samaprabha",
-    meaning: "O Lord Ganesha, with a curved trunk and a mighty body, radiant as a million suns",
-  },
-  {
-    sanskrit: "निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा।",
-    transliteration: "Nirvighnam Kuru Me Deva Sarvakaryeshu Sarvada",
-    meaning: "Please bless me O Lord, to grant success in all my endeavours, forever",
-  },
-];
+
 
 const SLIDER_IMAGES = [
   { src: "/slide-img1.jpg", alt: "Dulahinpur Utsav" },
@@ -210,10 +199,10 @@ return (
 
         {/* Navigation Arrows */}
         {/* 🚀 FIX: left-1 / right-1 बटन्स को किनारे से थोड़ी दूरी पर रखता है */}
-        <button onClick={prevSlide} className="absolute left-1 md:-left-8 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
+        <button onClick={prevSlide} className="absolute left-1 md:-left-8 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-sm">
           ‹
         </button>
-        <button onClick={nextSlide} className="absolute right-1 md:-right-8 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-md">
+        <button onClick={nextSlide} className="absolute right-1 md:-right-8 top-1/2 -translate-y-1/2 z-20 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#110505]/80 border border-[#d4af37]/40 text-[#d4af37] hover:bg-[#d4af37] hover:text-[#110505] transition-all backdrop-blur-sm">
           ›
         </button>
       </div>
@@ -415,93 +404,7 @@ function MarqueeGallery() {
     </div>
   );
 }
-// function MarqueeGallery() {
-//   const row1 = [...MARQUEE_IMAGES, ...MARQUEE_IMAGES];
-//   const row2 = [...MARQUEE_IMAGES, ...MARQUEE_IMAGES].reverse();
 
-//   return (
-//     <div className="w-full flex flex-col gap-5 overflow-hidden">
-//       <style>{`
-//         @keyframes marqueeLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-//         @keyframes marqueeRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
-        
-//         .marquee-track-left { display: flex; width: max-content; animation: marqueeLeft 40s linear infinite; }
-//         .marquee-track-right { display: flex; width: max-content; animation: marqueeRight 40s linear infinite; }
-//         .marquee-track-left:hover, .marquee-track-right:hover { animation-play-state: paused; }
-        
-//         .marquee-img-container {
-//           position: relative;
-//           width: 260px;
-//           aspect-ratio: 4 / 3;
-//           border-radius: 12px;
-//           margin-right: 16px;
-//           flex-shrink: 0;
-//           overflow: hidden;
-//           border: 1px solid rgba(212,175,55,0.2);
-//           transition: all 0.3s ease;
-//         }
-//         .marquee-img-container img {
-//           filter: brightness(0.8) saturate(0.8);
-//           transition: all 0.3s ease;
-//         }
-//         .marquee-img-container:hover {
-//           border-color: rgba(212,175,55,0.6);
-//           box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-//           transform: scale(1.03);
-//           z-index: 10;
-//         }
-//         .marquee-img-container:hover img {
-//           filter: brightness(1) saturate(1.1);
-//         }
-
-//         /* Mobile specific sizing */
-//         @media (max-width: 768px) {
-//           .marquee-img-container {
-//             width: 200px;
-//           }
-//         }
-//       `}</style>
-
-//       {/* Row 1 */}
-//       <div style={{ maskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)" }}>
-//         <div className="marquee-track-left">
-//           {row1.map((item, i) => (
-//             <div key={`r1-${i}`} className="marquee-img-container">
-//               {/* 🚀 FIX: Next.js Image with priority for first 4 items */}
-//               <Image 
-//                 src={item.src} 
-//                 alt={item.alt} 
-//                 fill
-//                 sizes="(max-width: 768px) 200px, 260px"
-//                 className="object-cover"
-//                 priority={i < 4}
-//               />
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-
-//       {/* Row 2 */}
-//       <div style={{ maskImage: "linear-gradient(to right, transparent 0%, black 1%, black 99%, transparent 100%)", WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 1%, black 99%, transparent 100%)" }}>
-//         <div className="marquee-track-right">
-//           {row2.map((item, i) => (
-//             <div key={`r2-${i}`} className="marquee-img-container">
-//               {/* 🚀 FIX: Next.js Image with priority for first 4 items */}
-//               <Image 
-//                 src={item.src} 
-//                 alt={item.alt} 
-//                 fill
-//                 sizes="(max-width: 768px) 200px, 260px"
-//                 className="object-cover"
-//                 priority={i < 4}
-//               />
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 
 /* ═══════════════════════════════════════════
    MAIN DEVOTIONAL SECTION
@@ -578,8 +481,8 @@ export default function DevotionalSection() {
         }
       `}</style>
       {/* Background Ambient Glows */}
-      <div className="absolute top-1/4 left-0 w-[400px] h-[400px] rounded-full bg-[#530909]/20 blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full bg-[#d4af37]/10 blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 left-0 w-[400px] h-[400px] rounded-full bg-[#530909]/20 blur-[50px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full bg-[#d4af37]/10 blur-[50px] pointer-events-none" />
 
       {/* ── SECTION HEADER ── */}
       <div className="relative z-10 flex flex-col mt-10 items-center gap-3">

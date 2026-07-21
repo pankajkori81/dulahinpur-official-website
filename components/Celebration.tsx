@@ -428,7 +428,7 @@ export default function InvitationSection() {
     <section
       id="celebration"
       className="relative min-h-screen py-24 px-4 flex flex-col items-center justify-center scroll-mt-24 z-10 overflow-hidden bg-black"
-      style={{ backgroundColor: "#000000" }}
+     style={{ backgroundColor: "#000000", contentVisibility: "auto" }}
     >
       {/* Background Gradient */}
       <div 

@@ -395,7 +395,7 @@ export default function Countdown() {
     <section className="relative w-full py-10 md:py-16 flex flex-col items-center justify-center -mt-5 md:-mt-8   overflow-hidden z-20">
       
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[400px] md:h-[400px] bg-[#4a0808]/20 blur-[80px] rounded-full -z-10"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[400px] md:h-[400px] bg-[#4a0808]/20 blur-[50px] rounded-full -z-10"></div>
 
       <div className="text-center mb-8 md:mb-12 z-10 px-4">
         <h2 className="text-[#FFD700] text-3xl md:text-5xl font-bold font-['Cormorant_Garamond']  drop-shadow-[0_0_10px_rgba(255,215,0,0.5)]">
@@ -445,7 +445,7 @@ export default function Countdown() {
         /* 4. मुख्य कंटेनर जिसमें 3D इफ़ेक्ट होगा */
         .flip-container {
           perspective: 1000px;
-          box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+          box-shadow: 0 5px 12px rgba(0,0,0,0.8);
         }
 
         /* 5. घूमने वाला (Flipper) कार्ड */

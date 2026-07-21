@@ -543,7 +543,7 @@ export default function VenueSection() {
             style={{
                background: "linear-gradient(145deg, rgba(45, 10, 10, 0.8) 0%, rgba(20, 5, 5, 0.9) 100%)", // Slightly redder background for contact
               border: "1px solid rgba(212, 175, 55, 0.25)",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
             }}
           >
             <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-[#111111] border border-[#d4af37]/30 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
@@ -572,7 +572,7 @@ export default function VenueSection() {
             style={{
               background: "linear-gradient(145deg, rgba(45, 10, 10, 0.8) 0%, rgba(20, 5, 5, 0.9) 100%)", // Slightly redder background for contact
               border: "1px solid rgba(212, 175, 55, 0.25)",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
             }}
           >
             <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-[#111111] border border-[#d4af37]/30 shadow-[0_0_15px_rgba(212,175,55,0.15)]">
@@ -603,7 +603,7 @@ export default function VenueSection() {
        style={{
               background: "linear-gradient(145deg, rgba(45, 10, 10, 0.8) 0%, rgba(20, 5, 5, 0.9) 100%)", // Slightly redder background for contact
               border: "1px solid rgba(212, 175, 55, 0.25)",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.5)",
             }}
           >
             <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 bg-[#111111] border border-[#d4af37]/40 shadow-[0_0_15px_rgba(212,175,55,0.2)]">
