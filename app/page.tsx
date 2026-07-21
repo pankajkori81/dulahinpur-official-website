@@ -11,12 +11,18 @@ import FeedbackSection from "@/components/FeedbackSection";
 import Footer from "@/components/Footer";
 // import Countdown from "@/components/Countdown";
 
+import StarBackground from "@/components/StarBackground";
+
 const App = () => {
   return (
     <div className="bg-[#FFF9F0] w-full min-h-screen font-sans overflow-x-hidden">
       
       {/* --- HERO SECTION (Imported from components) --- */}
-      <Hero />
+     <div className="relative z-10">
+        <Hero />
+      </div>
+
+      <StarBackground />
 
 
       {/* 🚀 NEON RUNNING DIVIDER (Hero और About के बीच) */}
@@ -47,17 +53,14 @@ const App = () => {
         {/* दौड़ने वाली लाइट */}
         <div className="running-light"></div>
 
-        {/* बीच का कमल (Lotus) जो दोनों सेक्शंस को आपस में जोड़ता है */}
-        {/* <div className="z-10 bg-[#050105] px-4 py-1 rounded-full border border-[#cf30aa]/30 shadow-[0_0_15px_rgba(207,48,170,0.2)]">
-          <span className="text-[#FFD700] text-xl drop-shadow-[0_0_8px_rgba(255,215,0,0.5)]">🪷</span>
-        </div> */}
-        
+      
       </div>
 
-      {/* <Countdown /> */}
 
       {/* --- About page --- */}
-      <About/>
+     <div className="relative z-10">
+        <About/>
+      </div>
 
 
         {/* 🚀 NEON RUNNING DIVIDER (Hero और About के बीच) */}
@@ -95,11 +98,15 @@ const App = () => {
 
 
       {/* Celebration */}
-      <Celebration/>
+        <div className="relative z-10">
+     <Celebration/>
+      </div>
 
 
       {/* venue */}
-      <Venue/>
+        <div className="relative z-10">
+     <Venue/>
+      </div>
 
          {/* 🚀 ROYAL GOLD RUNNING DIVIDER (About और Celebration के बीच) */}
     <div 
